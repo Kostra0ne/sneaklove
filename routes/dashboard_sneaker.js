@@ -8,50 +8,52 @@ const tagModel = require("./../models/Tag");
 
 // add routes = add, delete, update
 
-//delete
+//delete  *WORKS*
 router.get("/product-delete/:id", async (req, res, next) => {
   try {
     await sneakerModel.findByIdAndDelete(req.params.id);
-    res.redirect("./");
+    res.redirect("./../prod-manage");
   } catch (err) {
-    console.error(err);
+    next();
   }
 });
 
-//manage
+//manage  *WORKS*
 router.get("/prod-manage", async (req, res, next) => {
   try {
     let sneakers = await sneakerModel.find()
     res.render("products_manage", {sneakers});
   } catch (err) {
-    console.error(err);
+    next(err)
   }
 });
 
-//add
+//add  *WORKS*
 router.get("/prod-add", async (req, res, next) => {
   try {
-    console.log(`in try`);
+    //console.log(`in try`);
     let tags = await tagModel.find();
-    console.log(tags);
+    //console.log(tags);
     res.render("products_add", { tags });
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
 router.post("/prod-add", uploader.single("image"), async (req, res, next) => {
   try {
-    console.log("in try");
-    let newSneaker = await sneakerModel.create(req.body);
-    console.log(`new product created, ${newSneaker}`);
-    res.redirect("./");
+    //console.log("in try");
+    let newObj = req.body;
+    if (req.file) newObj.image = req.file.path;
+    let newSneaker = await sneakerModel.create(newObj);
+    //console.log(`new product created, ${newSneaker}`);
+    res.redirect("./prod-manage");
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
-//update
+//update *WORKS*
 router.get("/prod-edit/:id", async (req, res, next) => {
   try {
     console.log(`in try`);
@@ -64,8 +66,8 @@ router.get("/prod-edit/:id", async (req, res, next) => {
       tags: tags,
     });
   }
-  catch (err) {
-    next(err);
+  catch {
+    next();
   }
 });
 
