@@ -19,6 +19,14 @@ const sneakers = [
     description: "Even cooler sneakers",
     price: 180,
     category: "women",
+  },
+  {
+    name: "Mini Puma" ,
+    ref: "PUMA56",
+    size: 23,
+    description: "Super cute baby sneakers",
+    price: 60,
+    category: "kids",
   }
 ]
 

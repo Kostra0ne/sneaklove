@@ -13,7 +13,11 @@ const sneakerSchema = new Schema({
     },
     id_tags: {
         type: Schema.Types.ObjectId,
-        ref: "Tag"
+        ref: "Tag",
+    },
+    image: {
+        type : String,
+        default: "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1500,h_1500/global/372359/05/sv01/fnd/EEA/fmt/png/Basket-RS-X-Puzzle-AC-pour-bb"
     }
 })
 
