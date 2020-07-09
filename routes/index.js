@@ -1,8 +1,17 @@
 const express = require("express");
 const router = new express.Router();
+const sneakerModel = require("./../models/Sneaker");
 
 router.get("/", (req, res) => {
   res.render("index");
+});
+
+router.get("/sneakers/collection", async (req, res, next) => {
+  try {
+    const sneaker =  await sneakerModel.find();
+    res.render("/products", {sneaker});
+  } 
+  catch(error) {next(error)}
 });
 
 router.get("/sneakers/:cat", (req, res) => {
@@ -20,6 +29,5 @@ router.get("/signup", (req, res) => {
 router.get("/signin", (req, res) => {
   res.send("love");
 });
-
 
 module.exports = router;
