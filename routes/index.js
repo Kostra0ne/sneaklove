@@ -2,11 +2,11 @@ const express = require("express");
 const router = new express.Router();
 
 router.get("/", (req, res) => {
-  res.send("foo");
+  res.render("index");
 });
 
 router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
+  res.render("/products");
 });
 
 router.get("/one-product/:id", (req, res) => {
