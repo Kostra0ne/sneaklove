@@ -12,35 +12,45 @@ console.log(`\n\n
 -----------------------------\n\n`);
 
 router.get("/", (req, res) => {
-   res.render("index");
+  res.render("index");
 });
-
-/* router.get("/sneakers/collection", (req, res) => {
-  res.render
-}); */
 
 router.get("/sneakers/:cat", (req, res, next) => {
-   const cat = req.params.cat;
+  const cat = req.params.cat;
 
-   // je ne sais pas comment l'écrire correctement, mais du coup il faudrait mettre un filtre dans la Promise.all ! au lieu d'écrire juste find() 
-   // FIXME: 
-   // const womenSneakers = sneakerModel.find("category": `${cat}`)
-
-   Promise.all([sneakerModel.find().populate("label"), tagModel.find()])
-      .then((dbRes) => res.render("products", { sneakers : dbRes[0], tags: dbRes[1] }))
+  if (cat === "men" || cat === "women" || cat === "kids") {
+    Promise.all([
+      sneakerModel.find({ category: cat }).populate("label"),
+      tagModel.find(),
+    ])
+      .then((dbRes) =>
+        res.render("products", { sneakers: dbRes[0], tags: dbRes[1] })
+      )
       .catch(next);
+  } else if (cat === "collection") {
+    Promise.all([sneakerModel.find().populate("label"), tagModel.find()])
+      .then((dbRes) =>
+        res.render("products", { sneakers: dbRes[0], tags: dbRes[1] })
+      )
+      .catch(next);
+  } else {
+    res.redirect("/");
+  }
 });
 
-router.get("/one-product/:id", (req, res) => {
-   res.send("baz");
+router.get("/one-product/:id", (req, res, next) => {
+  sneakerModel
+    .findById(req.params.id)
+    .then((sneaker) => res.render("one_product", { sneaker }))
+    .catch(next);
 });
 
-router.get("/signup", (req, res) => {
-   res.render("signup");
+/* router.get("/signup", (req, res) => {
+  res.render("signup");
 });
 
 router.get("/signin", (req, res) => {
-   res.render("signin");
-});
+  res.render("signin");
+}); */
 
 module.exports = router;

@@ -21,6 +21,11 @@ const sneakerSchema = new Schema({
     type: String,
     enum: ["men", "women", "kids"],
   },
+  image: {
+    type: String,
+    default:
+      "https://www.baboucheshop.com/543/babouche-premier-prix-mixte-pointue-rouge.jpg",
+  },
   id_tags: {
     type: Schema.Types.ObjectId,
     ref: "Tag",
