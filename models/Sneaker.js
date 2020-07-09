@@ -15,7 +15,7 @@ const sneakerSchema = new Schema({
         Enum : ["men", "women", "kids"]
   },
   id_tags: {
-      type : Schema.Types.Ojbectid,
+      type : [Schema.Types.Ojbectid],
       ref : "Tag"
   }
 });
