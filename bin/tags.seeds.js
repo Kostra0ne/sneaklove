@@ -1,4 +1,4 @@
-require("../config/mongodb");
+require("../app");
 const tagModel = require("./../models/Tag");
 
 const tags = [{ label: "Nike" }, { label: "Rebook" }, { label: "Adidas" }];
