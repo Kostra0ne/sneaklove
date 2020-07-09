@@ -11,7 +11,6 @@ const sneakers = [
     description: "Really cool sneakers",
     price: 210,
     category: "men",
-    id_tags: ["5f0719c748a3e861d69debe2"]
   },
   {
     name: "Adidas Originals" ,
@@ -20,7 +19,6 @@ const sneakers = [
     description: "Even cooler sneakers",
     price: 180,
     category: "women",
-    id_tags: ["5f0719c748a3e861d69debe2", "5f0719c748a3e861d69debe3"]
   }
 ]
 

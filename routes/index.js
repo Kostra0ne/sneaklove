@@ -8,14 +8,14 @@ router.get("/", (req, res) => {
 
 router.get("/sneakers/collection", async (req, res, next) => {
   try {
-    const sneaker =  await sneakerModel.find();
-    res.render("/products", {sneaker});
+    const sneakers =  await sneakerModel.find();
+    res.render("products", {sneakers});
   } 
   catch(error) {next(error)}
 });
 
 router.get("/sneakers/:cat", (req, res) => {
-  res.render("/products");
+  res.render("products");
 });
 
 router.get("/one-product/:id", (req, res) => {
