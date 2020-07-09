@@ -14,16 +14,17 @@ router.get("/product-delete/:id", async (req, res, next) => {
     await sneakerModel.findByIdAndDelete(req.params.id);
     res.redirect("./../");
   } catch (err) {
-    next(err);
+    console.error(err);
   }
 });
 
 //manage
 router.get("/prod-manage", async (req, res, next) => {
   try {
-    res.render("products_manage");
+    let sneakers = await sneakerModel.find()
+    res.render("products_manage", {sneakers});
   } catch (err) {
-    next(err);
+    console.error(err);
   }
 });
 
@@ -35,7 +36,7 @@ router.get("/prod-add", async (req, res, next) => {
     console.log(tags);
     res.render("products_add", { tags });
   } catch (err) {
-    next(err);
+    console.error(err);
   }
 });
 
@@ -46,7 +47,7 @@ router.post("/prod-add", uploader.single("image"), async (req, res, next) => {
     console.log(`new product created, ${newSneaker}`);
     res.redirect("./");
   } catch (err) {
-    next(err);
+    console.error(err);
   }
 });
 
@@ -76,7 +77,7 @@ router.post("/prod-edit/:id", async (req, res, next) => {
       req.body
     );
     console.log(`product edited - ${updatedSneaker}`);
-    res.redirect("./");
+    res.redirect("./../prod-manage");
   } catch (err) {
     next(err);
   }

@@ -41,7 +41,7 @@ sneakerModel.create(sneakers)
 .then(dbRes => console.log(dbRes))
 .catch(dbErr => console.error(dbErr))
 
-/* const tagModel = require("./../models/Tag");
+ const tagModel = require("./../models/Tag");
 
 const tags = [
     {
@@ -57,4 +57,4 @@ const tags = [
 
 tagModel.create(tags)
 .then(dbRes => console.log(dbRes))
-.catch(dbErr => console.error(dbErr))*/
+.catch(dbErr => console.error(dbErr))
