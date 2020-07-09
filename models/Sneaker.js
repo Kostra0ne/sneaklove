@@ -15,11 +15,10 @@ const sneakerSchema = new Schema({
         Enum : ["men", "women", "kids"]
   },
   id_tags: {
-      type : [Schema.Types.Ojbectid],
+      type : [Schema.Types.ObjectId],
       ref : "Tag"
   }
 });
-
 
 const sneakerModel = mongoose.model("Sneaker", sneakerSchema);
 

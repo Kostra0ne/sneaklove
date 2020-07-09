@@ -11,16 +11,26 @@ const sneakerModel = require("./../models/Sneaker");
 ); */
 
 router.get("/", (req, res) => {
-  res.render("index");  //importer toute la collection Sneakers , la transmettre au hbs et dans le hbs faire un #each dans le partial sneaker_mini :)
+  res.render("index") 
 });
+
+router.get("/sneakers/collection", (req, res,next) => {
+  sneakerModel.find()
+  .then((result) => res.render("products", {sneakers:result}))
+  .catch(next)  
+});
+
 
 
 router.get("/sneakers/:cat", (req, res) => {
   res.send("bar");
-});
+});  //JE NE SAIS PAS COMMENT TRAITER CETTE ROUTE
 
-router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
+
+router.get("/one-product/:id", (req, res, next) => {
+  sneakerModel.findById(req.params.id)
+  .then((result) => res.render("one_product", {sneaker:result}))
+  .catch(next) 
 });
 
 
