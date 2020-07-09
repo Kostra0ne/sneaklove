@@ -47,4 +47,22 @@ router.post("/prod-add", uploader.single("image"), async (req, res, next) => {
   }
 });
 
+router.get("/prod-manage", async (req, res, next) => {
+  try {
+    const sneakers = await sneakerModel.find();
+    res.render("products_manage", { sneakers });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/product-delete/:id", async (req, res, next) => {
+  try {
+    await sneakerModel.findByIdAndDelete(req.params.id);
+    res.redirect("/prod-manage");
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
