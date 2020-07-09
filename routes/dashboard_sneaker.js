@@ -18,6 +18,15 @@ router.get("/product-delete/:id", async (req, res, next) => {
   }
 });
 
+//manage
+router.get("/prod-manage", async (req, res, next) => {
+  try {
+    res.render("products_manage");
+  } catch (err) {
+    next(err);
+  }
+});
+
 //add
 router.get("/prod-add", async (req, res, next) => {
   try {

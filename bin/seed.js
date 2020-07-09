@@ -13,7 +13,7 @@ const sneakers = [
         price:110,
         image:"./../public/medias/img/shoe.png",
         category:"men",
-        id_tags:"5f074bcaabe2e61be408f3a6"
+        id_tags:"5f076bc25d39d6256bc507d4"
     },
     {
         name: "Air Max",
@@ -23,7 +23,7 @@ const sneakers = [
         price:90,
         image:"./../public/medias/img/shoe.png",
         category:"women",
-        id_tags:"5f074bcaabe2e61be408f3a5"
+        id_tags:"5f076bc25d39d6256bc507d5"
     },
     {
         name: "FOO",
@@ -33,28 +33,28 @@ const sneakers = [
         price:80,
         image:"./../public/medias/img/shoe.png",
         category:"kids",
-        id_tags:"5f074bcaabe2e61be408f3a4"
+        id_tags:"5f076bc25d39d6256bc507d6"
     }
 ];
 
 sneakerModel.create(sneakers)
 .then(dbRes => console.log(dbRes))
-.catch(dbErr => console.error(dbErr)) 
+.catch(dbErr => console.error(dbErr))
 
 /* const tagModel = require("./../models/Tag");
 
 const tags = [
     {
-        label: "kids"
+        label: "gangsta"
     },
     {
-        label: "women"
+        label: "urban"
     },
     {
-        label: "men"
+        label: "street"
     }
-];
+]; 
 
 tagModel.create(tags)
 .then(dbRes => console.log(dbRes))
-.catch(dbErr => console.error(dbErr)) */
+.catch(dbErr => console.error(dbErr))*/
