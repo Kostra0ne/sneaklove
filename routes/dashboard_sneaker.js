@@ -12,7 +12,7 @@ const tagModel = require("./../models/Tag");
 router.get("/product-delete/:id", async (req, res, next) => {
   try {
     await sneakerModel.findByIdAndDelete(req.params.id);
-    res.redirect("./../");
+    res.redirect("./");
   } catch (err) {
     console.error(err);
   }

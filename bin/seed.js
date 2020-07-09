@@ -11,7 +11,7 @@ const sneakers = [
         size:40,
         description: "super cool shoes",
         price:110,
-        image:"./../public/medias/img/shoe.png",
+        image:"/medias/img/shoe.png",
         category:"men",
         id_tags:"5f076bc25d39d6256bc507d4"
     },
@@ -21,7 +21,7 @@ const sneakers = [
         size:38,
         description: " cool shoes",
         price:90,
-        image:"./../public/medias/img/shoe.png",
+        image:"/medias/img/shoe.png",
         category:"women",
         id_tags:"5f076bc25d39d6256bc507d5"
     },
@@ -31,7 +31,7 @@ const sneakers = [
         size:30,
         description: "super cool shoes",
         price:80,
-        image:"./../public/medias/img/shoe.png",
+        image:"/medias/img/shoe.png",
         category:"kids",
         id_tags:"5f076bc25d39d6256bc507d6"
     }
