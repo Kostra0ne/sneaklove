@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "user-pictures",
+    folder: "sneakers-shop",
   },
 });
 const fileUploader = multer({ storage }); // a middleware designed to parse file from requests and associate to req.file
