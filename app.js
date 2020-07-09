@@ -1,28 +1,29 @@
 require("dotenv").config();
-require("./config/mongodb"); // database initial setup
+require("./config/mongo"); // database initial setup
 require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
 const express = require("express");
 const app = express();
+const path = require("path"); //ajout 
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
-const hbo = require("hbs");
+const hbs = require("hbs"); //modif
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = false;
+const dev_mode = false; // a changer pour faire les vérifs
 const logger = require("morgan");
 
 // config logger (pour debug)
 app.use(logger("dev"));
 
 // initial config
+app.set("views", path.join(__dirname, "views")); //modif
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/view");
-app.use(express.static("public"));
-hbs.registerPartials(__dirname + "/views/partials");
-app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));//modif
+hbs.registerPartials(path.join(__dirname, "views/partial"));//modif
+app.use(express.urlencoded({ extended: true }));// modif
 app.use(express.json());
 app.use(cookieParser());
 
@@ -41,7 +42,7 @@ app.use(
 );
 
 // below, site_url is used in partials/shop_head.hbs to perform ajax request (var instead of hardcoded)
-app.locals.site_url = process.env.SITE_URL;
+/* app.locals.site_url = process.env.SITE_URL; */
 
 app.use(flash());
 
@@ -57,6 +58,6 @@ app.use(require("./middlewares/exposeFlashMessage"));
 
 // routers
 app.use("/", require("./routes/index"));
-
-
+app.use("/dashboard_sneaker", require("./routes/dashboard_sneaker")); //ajout
+app.use("/auth", require("./routes/auth"));//ajout
 module.exports = app;
