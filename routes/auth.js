@@ -4,7 +4,6 @@ const userModel = require("./../models/User");
 const bcrypt = require("bcrypt");
 const uploader = require("./../config/cloudinary");
 
-
 // form views
 
 router.get("/signup", (req, res) => {
@@ -29,21 +28,27 @@ router.get("/signin", (req, res) => {
 router.post("/signup", (req, res, next) => {
   const user = req.body;
   console.log(req.body);
-  
+
   //might be useless bc of REQUIRE property in form
   if (!user.email || !user.password) {
-    var msg = {status:"error", text: "please fill email and password fields."};
+    var msg = {
+      status: "error",
+      text: "please fill email and password fields.",
+    };
     console.log(msg);
-    return res.redirect("/auth/signup", {msg});
-
+    return res.redirect("/auth/signup", { msg });
   } else {
     userModel
       .findOne({ email: user.email })
-      .then(dbRes => {
+      .then((dbRes) => {
         if (dbRes) {
-          var msg = {status:"error", text: "this email adress is already registred. Sign-up or use a different email address"};
-    console.log(msg);
-          return res.render("signup", {msg});
+          var msg = {
+            status: "error",
+            text:
+              "this email adress is already registred. Sign-up or use a different email address",
+          };
+          console.log(msg);
+          return res.render("signup", { msg });
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -60,18 +65,18 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/signin", (req, res, next) => {
   const user = req.body;
-//might be useless bc of REQUIRE property in form
+  //might be useless bc of REQUIRE property in form
   if (!user.email || !user.password) {
     return res.redirect("/signin");
   }
 
   userModel
     .findOne({ email: user.email })
-    .then(dbRes => {
+    .then((dbRes) => {
       if (!dbRes) {
-        var msg = { status : "error", text : "wrong email"}
-    //console.log(msg);
-    return res.render("signin", {msg});
+        var msg = { status: "error", text: "wrong email" };
+        //console.log(msg);
+        return res.render("signin", { msg });
       }
       if (bcrypt.compareSync(user.password, dbRes.password)) {
         const { _doc: clone } = { ...dbRes };
@@ -79,12 +84,11 @@ router.post("/signin", (req, res, next) => {
         delete clone.password;
 
         req.session.currentUser = clone;
-        return res.redirect("/"); 
-
+        return res.redirect("/");
       } else {
-        var msg = { status : "error", text : "wrong password"}
+        var msg = { status: "error", text: "wrong password" };
         //console.log(msg);
-        return res.render("signin", {msg});
+        return res.render("signin", { msg });
       }
     })
     .catch(next);

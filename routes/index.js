@@ -21,6 +21,7 @@ router.get("/sneakers/collection", (req, res, next) => {
       res.render("products", {
         sneakers: dbRes[0],
         tags: dbRes[1],
+        scripts : ["collection"]
       });
     })
     .catch(next);
@@ -32,6 +33,7 @@ router.get("/sneakers/:cat", (req, res, next) => {
       res.render("products", {
         sneakers: dbRes[0],
         tags: dbRes[1],
+        scripts : ["collection"]
       });
     })
     .catch(next);
