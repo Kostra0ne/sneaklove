@@ -11,7 +11,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = true;
+const dev_mode = false;
 const logger = require("morgan");
 
 // config logger (pour debug)
@@ -59,6 +59,7 @@ app.use(require("./middlewares/exposeFlashMessage"));
 app.use("/", require("./routes/index"));
 app.use("/", require("./routes/sneakers"));
 app.use("/tags", require("./routes/tags"));
+app.use("/", require("./routes/auth"));
 
 
 module.exports = app;
