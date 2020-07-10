@@ -23,24 +23,27 @@ router.get("/signin", (req, res) => {
 
 router.post("/signup", (req, res, next) => {
   const user = req.body;
+  console.log(req.body);
+  
   if (!user.email || !user.password) {
     req.flash("error", "no empty fields here please");
-    return res.redirect("/signup");
+    return res.redirect("/auth/signup");
 
   } else {
     userModel
       .findOne({ email: user.email })
       .then(dbRes => {
         if (dbRes) {
-          req.flash("error", "sorry, email is already taken :/");
-          return res.redirect("/signup");
+          res.locals.msg = {status: "error", text:"sorry, email is already taken :/"};
+          req.flash("error", "sorry, email is already taken :/"); //pb affichage
+          return res.redirect("/auth/signup");
         }
 
         const salt = bcrypt.genSaltSync(10);
         const hashed = bcrypt.hashSync(user.password, salt);
         user.password = hashed;
 
-        userModel.create(user).then(() => res.redirect("/signin"));
+        userModel.create(user).then(() => res.redirect("/auth/signin"));
       })
       .catch(next);
   }
@@ -69,7 +72,7 @@ router.post("/signin", (req, res, next) => {
         delete clone.password;
 
         req.session.currentUser = clone;
-        return res.redirect("/index"); 
+        return res.redirect("/"); 
 
       } else {
         req.flash("error", "wrong credentials");
@@ -83,7 +86,7 @@ router.post("/signin", (req, res, next) => {
 
 router.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("/signin");
+    res.redirect("/auth/signin");
   });
 });
 
