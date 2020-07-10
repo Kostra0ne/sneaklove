@@ -11,7 +11,7 @@ router.get("/sneakers/collection", async (req, res, next) => {
   try {
     const sneakers = await sneakerModel.find();
     const tags = await tagModel.find();
-    res.render("products", { sneakers: sneakers, tags: tags });
+    res.render("products", { sneakers: sneakers, tags: tags});
   } catch (error) {
     next(error);
   }
@@ -76,7 +76,8 @@ router.get("/product-delete/:id", protectPrivateRoute, async (req, res, next) =>
 router.get("/product-edit/:id", protectPrivateRoute, async(req, res, next) => {
   try {
     const sneaker = await sneakerModel.findById(req.params.id);
-    res.render("product_edit", {sneaker});
+    const tags = await tagModel.find();
+    res.render("product_edit", {sneaker: sneaker, tags: tags});
   } catch (error) {
     next(error);
   }
