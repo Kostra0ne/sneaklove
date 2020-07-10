@@ -7,7 +7,7 @@ const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 //ALL ROUTES ARE PREFIXED WITH /dashboard_sneaker
 
-// add routes = add, delete, update
+
 
 //delete  *WORKS*
 router.get(
@@ -97,7 +97,7 @@ router.post("/prod-edit/:id", protectPrivateRoute, async (req, res, next) => {
 
 
 
-// add tag
+// add new tag in collection
 
 
 router.post("/tag-add", async (req,res, next) => {

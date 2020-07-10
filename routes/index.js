@@ -46,5 +46,22 @@ router.get("/one-product/:id", (req, res, next) => {
 });
 
 
+/*  FILTERS
+
+
+router.get("/sneakers/:tag", (req, res, next) => {
+  sneakerModel.populate("Tag")
+ sneakerModel.find( {id_tags.label :req.params.tag}
+    .then((dbRes) => {
+      res.render("products", {
+        sneakers: dbRes[0],
+        tags: dbRes[1],
+        scripts : ["collection"]
+      });
+    })
+    .catch(next);
+});
+*/
+
 
 module.exports = router;

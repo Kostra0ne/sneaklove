@@ -2,13 +2,12 @@ var btnAddTag = document.getElementById("btn_new_tag");
 
 btnAddTag.addEventListener("click", async function (event) {
   var label = document.getElementById("new_tag_name").value;
-  console.log(label);
+  //console.log(label);
   try {
     var newTag = await axios.post(
-      `http://localhost:3050/dashboard_sneaker/tag-add`,
+      `http://localhost:3050/dashboard_sneaker/tag-add`,   // how to change dynamically the process.env.PORT ?
       { label: label }
     );
-    console.log(newTag); // use with newTag.data => newTag.data.label
     var tagList = document.getElementById("tags");
     tagList.innerHTML += `<option value="${newTag.data._id}">${newTag.data.label}</option>`;
     document.getElementById("new_tag_name").value = "";
