@@ -13,7 +13,12 @@ router.get("/signup", (req, res) => {
 
 /* router.get("/signup", (req, res) => {
   res.render("signup", { js: ["signup"] }); //?????
-}); */
+}); 
+
+var msg = { status : "error", text : "wrong email"}
+    //console.log(msg);
+    return res.render("signin", {msg});
+    */
 
 router.get("/signin", (req, res) => {
   res.render("signin");
@@ -25,20 +30,20 @@ router.post("/signup", (req, res, next) => {
   const user = req.body;
   console.log(req.body);
   
+  //might be useless bc of REQUIRE property in form
   if (!user.email || !user.password) {
-    /* req.flash("error", "no empty fields here please"); */
-    var msg = {status:"error", text: "no empty fields here please"};
+    var msg = {status:"error", text: "please fill email and password fields."};
     console.log(msg);
-    return res.redirect("/auth/signup", msg);
+    return res.redirect("/auth/signup", {msg});
 
   } else {
     userModel
       .findOne({ email: user.email })
       .then(dbRes => {
         if (dbRes) {
-          res.locals.msg = {status: "error", text:"sorry, email is already taken :/"};
-          req.flash("error", "sorry, email is already taken :/"); //pb affichage
-          return res.redirect("/auth/signup");
+          var msg = {status:"error", text: "this email adress is already registred. Sign-up or use a different email address"};
+    console.log(msg);
+          return res.render("signup", {msg});
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -55,9 +60,8 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/signin", (req, res, next) => {
   const user = req.body;
-
+//might be useless bc of REQUIRE property in form
   if (!user.email || !user.password) {
-    req.flash("error", "wrong credentials");
     return res.redirect("/signin");
   }
 
@@ -65,8 +69,9 @@ router.post("/signin", (req, res, next) => {
     .findOne({ email: user.email })
     .then(dbRes => {
       if (!dbRes) {
-        req.flash("error", "wrong credentials");
-        return res.redirect("/auth/signin");
+        var msg = { status : "error", text : "wrong email"}
+    //console.log(msg);
+    return res.render("signin", {msg});
       }
       if (bcrypt.compareSync(user.password, dbRes.password)) {
         const { _doc: clone } = { ...dbRes };
@@ -77,8 +82,9 @@ router.post("/signin", (req, res, next) => {
         return res.redirect("/"); 
 
       } else {
-        req.flash("error", "wrong credentials");
-        return res.redirect("/signin");
+        var msg = { status : "error", text : "wrong password"}
+        //console.log(msg);
+        return res.render("signin", {msg});
       }
     })
     .catch(next);
