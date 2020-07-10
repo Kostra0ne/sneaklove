@@ -1,9 +1,20 @@
-// const btnAddTag = document.getElementById("btn_new_tag");
-// const newTagName = document.getElementById("new_tag_name").value;
+const btnAddTag = document.querySelector("#btn_new_tag");
+const newTagName = document.querySelector("#new_tag_name");
+const tagsList = document.querySelector("#tags");
 
-// function addTag() {
-//   axios.post("/tag-add");
-// }
+function addTag() {
+   console.log("INPUT VALUE = NEW TAG ======>", newTagName.value);
+   axios
+      .post("/dashboard/api/tags", { label: newTagName.value })
+      .then((dbRes) => {
+         const newTag = dbRes.data;
+         displayNewTag(newTag);
+      })
+      .catch((err) => console.log(err));
+}
 
-// btnAddTag.onclick = addTag;
-console.log("yo yo yo ");
+function displayNewTag(tag) {
+   tagsList.innerHTML += `<option value="${tag._id}">${tag.label}</option>`;
+}
+
+btnAddTag.onclick = addTag;
