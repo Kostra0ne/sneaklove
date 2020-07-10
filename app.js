@@ -11,7 +11,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = true;
+const dev_mode = false;
 const logger = require("morgan");
 
 // config logger (pour debug)
@@ -55,8 +55,11 @@ if (dev_mode === true) {
 app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
 
+
 // routers
 app.use("/", require("./routes/index"));
 app.use("/sneakers", require("./routes/dashboard_sneaker"))
+app.use("/", require("./routes/auth"))
+
 
 module.exports = app;

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
+const protectAdminRoute = require("./../middlewares/protectAdminRoute");
 const uploader = require("./../config/cloudinary");
 const sneakerModel = require("../models/Sneaker");
 const tagModel = require("./../models/Tag");
@@ -16,7 +17,7 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/prod-add", (req, res, next) => {
+router.get("/prod-add", protectAdminRoute, (req, res, next) => {
   tagModel
     .find()
     .then((tags) => {
@@ -25,7 +26,7 @@ router.get("/prod-add", (req, res, next) => {
     .catch(next);
 });
 
-router.get("/prod-manage", (req, res, next) => {
+router.get("/prod-manage",protectAdminRoute, (req, res, next) => {
   sneakerModel
     .find()
     .then((sneakers) => {
@@ -103,12 +104,6 @@ router.get("/one-product/:id", (req, res, next) => {
     .catch(next);
 });
 
-router.get("/signup", (req, res) => {
-  res.render("sneak");
-});
 
-router.get("/signin", (req, res) => {
-  res.render("love");
-});
 
 module.exports = router;
