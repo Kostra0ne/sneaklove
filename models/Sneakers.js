@@ -18,8 +18,9 @@ const Schema = mongoose.Schema;
          ]
      },
      id_tags:[{
-        type:String, 
-        ref:"Tag"
+         type:String,
+        // type:Schema.Types.ObjectId, 
+        ref:"tags"
      }],
  });
 
