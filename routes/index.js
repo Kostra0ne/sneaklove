@@ -15,12 +15,16 @@ router.get("/", (req, res) => {
   res.render("index") 
 });
 
-router.get("/sneakers/collection", (req, res,next) => {
-  sneakerModel.find()
-  .then((result) => res.render("products", {sneakers:result}))
-  .catch(next)  
+router.get("/sneakers/collection", (req, res, next) => {
+  Promise.all([sneakerModel.find(), tagModel.find()])
+    .then((dbRes) => {
+      res.render("products", {
+        sneakers: dbRes[0],
+        tags: dbRes[1],
+      });
+    })
+    .catch(next);
 });
-
 
 router.get("/sneakers/:cat", (req, res, next) => {
   Promise.all([sneakerModel.find({category: req.params.cat}), tagModel.find()])
