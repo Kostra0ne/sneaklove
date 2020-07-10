@@ -11,13 +11,11 @@
     </div>
     <div class="form-item-wrapper flexed-item">
       <label for="sneaker-ref" class="label-ref label">Réf.</label>
-      <input name="ref" id="sneaker-ref" type="text" class="input-text input" placeholder="ex: NV23498"
-        value="NV23498">
+      <input name="ref" id="sneaker-ref" type="text" class="input-text input" placeholder="ex: NV23498" value="NV23498">
     </div>
     <div class="form-item-wrapper flexed-item">
       <label for="sneaker-size" class="label-ref label">Size</label>
-      <input name="size" id="sneaker-size" 
-      type="number" class="input-text input" placeholder="ex: 37" value="42">
+      <input name="size" id="sneaker-size" type="number" class="input-text input" placeholder="ex: 37" value="42">
     </div>
     <div class="form-item-wrapper flexed-item">
       <label for="sneaker-descr" class="label-descr label">Description</label>
@@ -49,13 +47,13 @@
     <button class="button-primary add-sneaker-btn">Add to collection</button>
   </form>
 
-  <div class="add-tag-form">
+  <form method="post" action="/dashboard/tag-add" class="add-tag-form">
     <p id="add-tag-message" class="msg"></p>
     <h3 class="form-title">Add tags</h3>
     <div class="form-item-wrapper flexed-item">
-      <label for="category-name" class="category-name label">Sneaker tag</label>
-      <input id="new_tag_name" type="text" class="input" placeholder="ex: Gangsta">
+      <label for="new_tag_name" class="category-name label">Sneaker tag</label>
+      <input name="label" id="new_tag_name" type="text" class="input" placeholder="ex: Gangsta">
     </div>
     <button id="btn_new_tag" class="button-primary add-category-btn">Create this category</button>
-  </div>
+  </form>
 </div>

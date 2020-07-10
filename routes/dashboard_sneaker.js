@@ -7,6 +7,7 @@ const { log } = require("debug");
 const uploader = require("./../config/cloudinary");
 const { render } = require("../app");
 const protectAdminRoute = require("../middlewares/protectAdminRoute");
+
 /* Routes are prefixed with dashboard/ */
 
 router.get("/prod-add", protectAdminRoute, (req, res, next) => {
@@ -26,6 +27,28 @@ router.get("/prod-manage", protectAdminRoute, (req, res, next) => {
     })
     .catch(next);
 });
+
+// router.post(
+//   "/prod-add",
+//   uploader.single("image"),
+//   protectAdminRoute,
+//   (req, res, next) => {
+//     const newProd = req.body;
+
+//     console.log(req.file);
+//     console.log(req.body);
+
+//     if (req.file) newProd.image = req.file.path;
+
+//     sneakerModel
+//       .create(newProd)
+//       .then(() => {
+//         req.flash("success", "sneaker successfully created");
+//         res.redirect("/dashboard/prod-manage");
+//       })
+//       .catch(next);
+//   }
+// );
 
 router.post(
   "/prod-add",
@@ -48,6 +71,16 @@ router.post(
       .catch(next);
   }
 );
+
+router.post("/tag-add", protectAdminRoute, (req, res, next) => {
+  tagModel
+    .create(req.body)
+    .then(() => {
+      req.flash("success", "Tag successfully created");
+      res.redirect("/dashboard/prod-add");
+    })
+    .catch(next);
+});
 
 router.get("/prod-edit/:id", protectAdminRoute, (req, res, next) => {
   Promise.all([sneakerModel.findById(req.params.id), tagModel.find()])
