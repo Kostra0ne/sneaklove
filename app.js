@@ -12,7 +12,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = false;
+const dev_mode = false; // TODO WARNING
 const logger = require("morgan");
 
 app.use(express.urlencoded({ extended: true }));
@@ -57,6 +57,14 @@ if (dev_mode === true) {
 
 app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
+
+// DEV MODE below !
+// app.locals.isLoggedIn = true;
+// app.locals.isAdmin = true;
+// app.locals.currentUser = {
+//   email: "yo@gui.com",
+//   password: "123",
+// };
 
 // routers
 app.use("/", require("./routes/index"));

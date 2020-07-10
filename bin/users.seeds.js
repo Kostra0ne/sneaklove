@@ -4,13 +4,14 @@ const userModel = require("./../models/User");
 const users = [
   {
     name: "Audrey",
-    lastname: "Belson",
+    lastname: "B",
     email: "audrey@yopmail.com",
     password: "123",
+    role: "admin",
   },
   {
     name: "Chakib",
-    lastname: "Bachir",
+    lastname: "B",
     email: "chakib@yopmail.com",
     password: "123",
   },
