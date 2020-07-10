@@ -22,7 +22,7 @@ app.set("view engine", "hbs");
 app.set("views", __dirname + "/views");
 app.use(express.static("public"));
 hbs.registerPartials(__dirname + "/views/partials");
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -58,6 +58,7 @@ app.use(require("./middlewares/exposeFlashMessage"));
 // routers
 app.use("/", require("./routes/index"));
 app.use("/", require("./routes/sneakers"));
+app.use("/tags", require("./routes/tags"));
 
 
 module.exports = app;
