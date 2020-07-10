@@ -12,7 +12,7 @@ const hbs = require("hbs"); //modif
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = true; // a changer pour faire les vérifs
+const dev_mode = false; // a changer pour faire les vérifs
 const logger = require("morgan");
 
 // config logger (pour debug)

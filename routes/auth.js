@@ -8,9 +8,12 @@ const uploader = require("./../config/cloudinary");
 // form views
 
 router.get("/signup", (req, res) => {
-  res.render("signup", { js: ["signup"] }); //??????
+  res.render("signup");
 });
 
+/* router.get("/signup", (req, res) => {
+  res.render("signup", { js: ["signup"] }); //?????
+}); */
 
 router.get("/signin", (req, res) => {
   res.render("signin");
@@ -78,7 +81,7 @@ router.post("/signin", (req, res, next) => {
 
 // action::Logout
 
-router.get("/signout", (req, res) => {
+router.get("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/signin");
   });

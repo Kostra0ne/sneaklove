@@ -22,8 +22,8 @@ router.get("/sneakers/collection", (req, res,next) => {
 });
 
 
-router.get("/sneakers/:category", (req, res, next) => {
-  Promise.all([sneakerModel.find({category: req.params.category}), tagModel.find()])
+router.get("/sneakers/:cat", (req, res, next) => {
+  Promise.all([sneakerModel.find({category: req.params.cat}), tagModel.find()])
     .then((dbRes) => {
       res.render("products", {
         sneakers: dbRes[0],
