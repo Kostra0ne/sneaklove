@@ -14,7 +14,7 @@ router.get("/prod-add", protectAdminRoute, (req, res, next) => {
   tagModel
     .find()
     .then((allTags) => {
-      res.render("products_add", { allTags });
+      res.render("products_add", { allTags, scripts: ["tagHandler.js"] });
     })
     .catch(next);
 });
@@ -75,9 +75,9 @@ router.post(
 router.post("/tag-add", protectAdminRoute, (req, res, next) => {
   tagModel
     .create(req.body)
-    .then(() => {
-      req.flash("success", "Tag successfully created");
-      res.redirect("/dashboard/prod-add");
+    .then((tag) => {
+      res.flash("Succes", "Tag successfully created");
+      res.status(200).json(tag);
     })
     .catch(next);
 });

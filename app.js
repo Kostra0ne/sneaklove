@@ -12,7 +12,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = false; // TODO WARNING
+const dev_mode = true; // TODO WARNING
 const logger = require("morgan");
 
 app.use(express.urlencoded({ extended: true }));

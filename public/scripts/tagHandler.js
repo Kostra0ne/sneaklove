@@ -6,3 +6,4 @@
 // }
 
 // btnAddTag.onclick = addTag;
+console.log("yo yo yo ");
