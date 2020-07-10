@@ -41,7 +41,7 @@ app.use(
   })
 );
 // below, site_url is used in partials/shop_head.hbs to perform ajax request (var instead of hardcoded)
- /*app.locals.site_url = process.env.SITE_URL; */
+ app.locals.site_url = process.env.SITE_URL;
 
 app.use(flash());
 

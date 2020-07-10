@@ -27,7 +27,9 @@ router.post("/signup", (req, res, next) => {
   
   if (!user.email || !user.password) {
     /* req.flash("error", "no empty fields here please"); */
-    return res.redirect("/auth/signup", msg={status:"error", text: "no empty fields here please"});
+    var msg = {status:"error", text: "no empty fields here please"};
+    console.log(msg);
+    return res.redirect("/auth/signup", msg);
 
   } else {
     userModel

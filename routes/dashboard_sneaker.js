@@ -3,13 +3,14 @@ const router = new express.Router(); // create an app sub-module (router)
 const sneakerModel = require("./../models/Sneaker");
 const uploader = require("./../config/cloudinary");
 const tagModel = require("./../models/Tag");
+const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 //ALL ROUTES ARE PREFIXED WITH /dashboard_sneaker
 
 // add routes = add, delete, update
 
 //delete  *WORKS*
-router.get("/product-delete/:id", async (req, res, next) => {
+router.get("/product-delete/:id", protectPrivateRoute, async (req, res, next) => {
   try {
     await sneakerModel.findByIdAndDelete(req.params.id);
     res.redirect("./../prod-manage");
@@ -19,7 +20,7 @@ router.get("/product-delete/:id", async (req, res, next) => {
 });
 
 //manage  *WORKS*
-router.get("/prod-manage", async (req, res, next) => {
+router.get("/prod-manage", protectPrivateRoute, async (req, res, next) => {
   try {
     let sneakers = await sneakerModel.find()
     res.render("products_manage", {sneakers});
@@ -29,7 +30,7 @@ router.get("/prod-manage", async (req, res, next) => {
 });
 
 //add  *WORKS*
-router.get("/prod-add", async (req, res, next) => {
+router.get("/prod-add", protectPrivateRoute, async (req, res, next) => {
   try {
     //console.log(`in try`);
     let tags = await tagModel.find();
@@ -40,7 +41,7 @@ router.get("/prod-add", async (req, res, next) => {
   }
 });
 
-router.post("/prod-add", uploader.single("image"), async (req, res, next) => {
+router.post("/prod-add",protectPrivateRoute, uploader.single("image"), async (req, res, next) => {
   try {
     //console.log("in try");
     let newObj = req.body;
@@ -54,7 +55,7 @@ router.post("/prod-add", uploader.single("image"), async (req, res, next) => {
 });
 
 //update *WORKS*
-router.get("/prod-edit/:id", async (req, res, next) => {
+router.get("/prod-edit/:id",protectPrivateRoute, async (req, res, next) => {
   try {
     console.log(`in try`);
     let sneaker = await sneakerModel.findById(req.params.id);
@@ -71,7 +72,7 @@ router.get("/prod-edit/:id", async (req, res, next) => {
   }
 });
 
-router.post("/prod-edit/:id", async (req, res, next) => {
+router.post("/prod-edit/:id",protectPrivateRoute, async (req, res, next) => {
   try {
     console.log("in edit try");
     let updatedSneaker = await sneakerModel.findByIdAndUpdate(
