@@ -14,7 +14,7 @@ router.get("/product-delete/:id", async (req, res, next) => {
     await sneakerModel.findByIdAndDelete(req.params.id);
     res.redirect("./../prod-manage");
   } catch (err) {
-    next();
+    next(err);
   }
 });
 

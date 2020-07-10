@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const sneakerModel = require("./../models/Sneaker");
+const tagModel = require("../models/Tag");
 
 /* return console.log(`\n\n
 -----------------------------
@@ -21,11 +22,16 @@ router.get("/sneakers/collection", (req, res,next) => {
 });
 
 
-
-router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
-});  //JE NE SAIS PAS COMMENT TRAITER CETTE ROUTE
-
+router.get("/sneakers/:category", (req, res, next) => {
+  Promise.all([sneakerModel.find({category: req.params.category}), tagModel.find()])
+    .then((dbRes) => {
+      res.render("products", {
+        sneakers: dbRes[0],
+        tags: dbRes[1],
+      });
+    })
+    .catch(next);
+});
 
 router.get("/one-product/:id", (req, res, next) => {
   sneakerModel.findById(req.params.id)
