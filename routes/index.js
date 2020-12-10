@@ -29,19 +29,47 @@ router.get("/sneakers/collection", async (req, res, next) => {
 });
 // *****************END*************************
 
+// **************Display all sneakers MEN**********
+router.get("/sneakers/men", async (req, res, next) => {
+  try {
+    const sneakers = await SneakersModel.find({ category: { $eq: "men" } });
+    res.render("products", { sneakers });
+  } catch (error) {
+    next(error);
+  }
+});
+// *****************END*************************
+
+// **************Display all sneakers KIDS**********
+router.get("/sneakers/kids", async (req, res, next) => {
+  try {
+    const sneakers = await SneakersModel.find({ category: { $eq: "kids" } });
+    res.render("products", { sneakers });
+  } catch (error) {
+    next(error);
+  }
+});
+// *****************END*************************
+
+// **************Display all sneakers WOMEN**********
+router.get("/sneakers/women", async (req, res, next) => {
+  try {
+    const sneakers = await SneakersModel.find({ category: { $eq: "women" } });
+    res.render("products", { sneakers });
+  } catch (error) {
+    next(error);
+  }
+});
+// *****************END*************************
+
 // ************************
-// router.get("/sneakers/:cat", async (req, res, next) => {
-// try {
-
-//   res.send("bar");
-// } catch (error) {
-//   next(error);
-// }
-
-// });
-
-router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
+router.get("/one-product/:id", async (req, res, next) => {
+  try {
+    const oneProduct = await SneakersModel.findById(req.params.id);
+    res.render("one_product", oneProduct);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/signup", (req, res) => {

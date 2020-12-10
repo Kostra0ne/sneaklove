@@ -7,7 +7,11 @@ const SneakerSchema = new Schema({
   size: Number,
   description: String,
   price: Number,
-  category: String,
+  category: { type: String, enum: ["kids", "men", "women"] },
+  image: {
+    type: String,
+    default: "/medias/img/shoe.png",
+  },
   id_tags: [{ type: Schema.Types.ObjectId, ref: "tag" }],
 });
 
