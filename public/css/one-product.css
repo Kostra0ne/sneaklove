@@ -38,9 +38,11 @@
 }
 
 .sneak-img-container {
-  width: 35%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
 }
 
 .sneak-img {
-  width: 100%;
+  width: 50%;
 }

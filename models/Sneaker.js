@@ -9,7 +9,7 @@ var SneakerSchema = new Schema({
   price: Number,
   category: {
     type: String,
-    enum: ["collection", "men", "women", "kids"],
+    enum: ["men", "women", "kids"],
   },
   image: String,
 });
