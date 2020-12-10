@@ -18,7 +18,7 @@ const logger = require("morgan");
 
 // config logger (pour debug)
 app.use(logger("dev"));
-
+// console.log(process.env.MONGO_URI);
 // initial config
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "hbs");
@@ -59,5 +59,9 @@ app.use(require("./middlewares/exposeFlashMessage"));
 
 // routers
 app.use("/", require("./routes/index"));
+
+//route dashboard
+const dashboardRouter = require("./routes/dashboard_sneaker");
+app.use("/", dashboardRouter);
 
 module.exports = app;

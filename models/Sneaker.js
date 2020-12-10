@@ -7,6 +7,10 @@ const SneakerSchema = new Schema({
   size: Number,
   description: String,
   price: Number,
+  image: {
+    type: String,
+    default: "https://res.cloudinary.com/dub0zzdwg/image/upload/v1607630964/shoe_t6nkdt.png",
+  },
   category: {
     type: String,
     enum: ["men", "women", "kids"],

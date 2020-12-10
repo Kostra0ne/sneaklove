@@ -1,7 +1,8 @@
 require("dotenv").config();
-require(".././app");
+require("./../config/mongo");
 
-const UserModel = require("../models/User");
+//db user
+const UserModel = require("./../models/User");
 
 const users = [
   {
@@ -12,6 +13,15 @@ const users = [
   },
 ];
 
-UserModel.insertMany(users)
-  .then((dbRes) => console.log(dbRes))
-  .catch((err) => console.log(err));
+async function inserUser() {
+  try {
+    await UserModel.deleteMany(); // empty the styles db collection
+    const inserted = await UserModel.insertMany(users); // insert docs in db
+    console.log(`seed labels done : ${inserted.length} documents inserted !`);
+  } catch (err) {
+    console.error(err);
+  }
+}
+inserUser();
+
+
