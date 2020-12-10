@@ -1,5 +1,6 @@
 const express = require("express");
 const router = new express.Router();
+const SneakersModel = require("./../models/Sneaker");
 
 // console.log(`\n\n
 // -----------------------------
@@ -8,13 +9,36 @@ const router = new express.Router();
 // -----------------------------
 // -----------------------------\n\n`);
 
+//********Home********* */
 router.get("/", (req, res) => {
-  res.render("views/index");
+  res.render("index");
 });
+router.get("/home", (req, res) => {
+  res.render("index");
+});
+// ************END************
 
-router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
+// **************Display all sneakers**********
+router.get("/sneakers/collection", async (req, res, next) => {
+  try {
+    const sneakers = await SneakersModel.find();
+    res.render("products", { sneakers });
+  } catch (error) {
+    next(error);
+  }
 });
+// *****************END*************************
+
+// ************************
+// router.get("/sneakers/:cat", async (req, res, next) => {
+// try {
+
+//   res.send("bar");
+// } catch (error) {
+//   next(error);
+// }
+
+// });
 
 router.get("/one-product/:id", (req, res) => {
   res.send("baz");
