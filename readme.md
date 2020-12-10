@@ -52,7 +52,7 @@ So you won't have to deal that much with HTML/CSS ( Ahhh... this is perfect ; )
   lastname: String,  
   email: String,  
   password: String  
-  }  
+  }
 
 - Sneaker {  
   name: String,  
@@ -66,7 +66,7 @@ So you won't have to deal that much with HTML/CSS ( Ahhh... this is perfect ; )
 
 - Tags {  
   label: String  
-  }  
+  }
 
 ---
 
@@ -84,7 +84,7 @@ So you won't have to deal that much with HTML/CSS ( Ahhh... this is perfect ; )
 ## Delivery
 
 Each team will deliver their code on a github repo
-Before friday 2020/12/11 17h00
+Before friday 2020/12/11 tomorrow 12h00
 
 ---
 
