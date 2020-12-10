@@ -11,3 +11,18 @@ const tagDB = [
   { label: "tag5" },
   { label: "tag6" },
 ];
+
+
+//poser la question demain -------------
+
+async function insertTag() {
+  try {
+    await TagModel.deleteMany(); 
+    const inserted = await TagModel.insertMany(tagDB); // insert docs in db
+    console.log(`seed tags done : ${inserted.length} documents inserted !`);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+insertTag();

@@ -12,15 +12,33 @@ console.log(`\n\n
 -----------------------------
 -----------------------------\n\n`);
 
-router.get("/", (req, res) => {
-  res.render("index");
+// 
+
+router.get("/sneakers/collection", async (req, res, next) => {
+  try {
+    const sneakers = await SneakerModel.find();
+    res.render("products", {sneakers});
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get("/sneakers/:cat", async (req, res) => {
-  res.send("bar");
-  const AllSneakers = await SneakerModel.find();
-  console.log(AllSneakers);
-  res.render("products", { AllSneakers });
+// router.get("/sneakers/:cat", async (req, res) => {
+//   res.send("bar");
+//   const AllSneakers = await SneakerModel.find();
+//   console.log(AllSneakers);
+//   const CatSneakers = AllSneakers.category.enum;
+//   console.log(CatSneakers)
+//   res.render("products", { AllSneakers });
+// });
+
+router.get("/sneakers/:tartuff", async (req, res, next) => {
+  try {
+    const sneakers = await SneakerModel.find({ category: req.params.tartuff });
+    res.render("products", { sneakers });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/one-product/:id", (req, res) => {

@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("./../config/mongo");
+require("../config/mongo");
 
 const SnearkerModel = require("../models/Sneaker");
 
@@ -58,3 +58,18 @@ const sneakersDB = [
     category: "kids",
   },
 ];
+
+
+//poser la question demain -------------
+
+async function insertSneaker() {
+  try {
+    await SnearkerModel.deleteMany(); 
+    const inserted = await SnearkerModel.insertMany(sneakersDB); // insert docs in db
+    console.log(`seed sneakers done : ${inserted.length} documents inserted !`);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+insertSneaker();

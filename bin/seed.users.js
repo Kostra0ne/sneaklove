@@ -39,3 +39,17 @@ const userDB = [
     password: "password5",
   },
 ];
+
+//poser la question demain -------------
+
+async function insertUsers() {
+  try {
+    await UserModel.deleteMany(); 
+    const inserted = await UserModel.insertMany(userDB); // insert docs in db
+    console.log(`seed users done : ${inserted.length} documents inserted !`);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+insertUsers();
