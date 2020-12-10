@@ -2,6 +2,7 @@ const hbs = require("hbs");
 
 // CUSTOM HELPERS
 
+hbs.registerHelper("toJSON", (val) => JSON.stringify(val));
 // function below: add the ternary operator functionnality to .hbs files
 // usage : {{ternary true "yay" "nay "}} => prints yay
 // usage : {{ternary NaN "yay" "nay "}} => prints nay
