@@ -4,7 +4,7 @@ const SneakerModel = require("./../models/Sneaker");
 const TagModel = require("./../models/Tag");
 const UserModel = require("./../models/User");
 
-router.get("/", (req, res) => {
+router.get("/home", (req, res) => {
   res.render("index");
 });
 
