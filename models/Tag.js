@@ -6,4 +6,4 @@ const tagSchema = new Schema({
 });
 
 const TagModel = mongoose.model("tags", tagSchema);
-module.exports = UserModel;
+module.exports = TagModel;

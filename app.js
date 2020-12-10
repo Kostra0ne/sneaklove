@@ -14,15 +14,17 @@ const MongoStore = require("connect-mongo")(session);
 const dev_mode = false;
 const logger = require("morgan");
 const path = require("path");
+//const uploader = require("./../config/cloudinary");
+//const protectAdminRoute = require("./../middlewares/protectAdminRoute");
 
 // config logger (pour debug)
 app.use(logger("dev"));
 
 // initial config
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/view");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
-hbs.registerPartials(path.join(__dirname, "views/partials"));
+hbs.registerPartials(path.join(__dirname, "views/partial"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
