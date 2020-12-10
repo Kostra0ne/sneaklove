@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const fileUploader = require("./../config/cloudinary");
+const bcrypt = require("bcrypt");
+const UserModel = require("../models/User");
 const SneakerModel = require("./../models/Sneaker");
 const TagModel = require("./../models/Tag");
-const fileUploader = require("./../config/cloudinary");
+const flash = require("connect-flash");
 
 console.log(`\n\n
 -----------------------------
@@ -69,14 +72,15 @@ router.get("/prod-add", async (req, res, next) => {
 
 });
 
-router.post("/prod-add", fileUploader.single('image'), async (req, res, next) => {
+router.post("/prod-add", fileUploader.single("image"), async (req, res, next) => {
+  const newSneaker = { ...req.body };
+  // console.log("check", req.body)
+  if (!req.file) newSneaker.image = undefined;
+  else newSneaker.image = req.file.path;
+
   try {
-    const newProd = {...req.body};
-    console.log(req.file)
-    const newSneaker = req.body;
-     console.log(req.body); 
     await SneakerModel.create(newSneaker);
-    // res.redirect("/dashboard");
+    res.redirect("/dashboard");
   } catch (err) {
     next(err)
   }
@@ -85,17 +89,19 @@ router.post("/prod-add", fileUploader.single('image'), async (req, res, next) =>
 
 router.get("/prod-edit/:id", async (req, res, next) => {
   const sneaker = await SneakerModel.findById(req.params.id);
+  const tags = await TagModel.find();
+
   console.log(sneaker);
-  res.render("product_edit", { sneaker })
+  res.render("product_edit", { sneaker, tags })
 });
 
 
 router.post("/prod-edit/:id", async (req, res, next) => {
   try {
-    const updateSneaker = req.body ///may use syntax{...req.body}???
+    const sneaker = req.body
 
-    await SneakerModel.findByIdAndUpdate(req.params.id, updateSneaker);
-    res.send("good here");
+    await SneakerModel.findByIdAndUpdate(req.params.id, sneaker);
+    res.redirect("/dashboard")
   } catch (err) {
     next(err)
   }
@@ -104,12 +110,64 @@ router.post("/prod-edit/:id", async (req, res, next) => {
 
 
 router.get("/signup", (req, res) => {
-  res.send("sneak");
+  res.render("signup");
 });
+
+router.post("/signup", async (req, res, next) => {
+  // console.log(req.body)
+  try{
+    const newUser = {...req.body};
+    // console.log({newUser})
+    const foundUser = await UserModel.findOne({email: newUser.email});
+
+    if(foundUser){
+      console.log("found")
+      req.flash("warning", "Email already registered");
+      res.redirect("/signup");
+    }else{
+      console.log("new")
+      const hashedPassword = bcrypt.hashSync(newUser.password, 10);
+      newUser.password = hashedPassword;
+      await UserModel.create(newUser);
+      req.flash("success", "Congrats ! You are now registered !");
+      res.redirect("/dashboard");
+    }
+  }catch(err){
+    next(err)
+  }
+})
 
 router.get("/signin", (req, res) => {
-  res.send("love");
+  res.render("signin")
 });
 
+router.post("/signin", async(req, res, next) => {
+  const { email, password } = req.body;
+  const foundUser = await User.findOne({ email: email });
+  if (!foundUser) {
+    req.flash("error", "Invalid credentials");
+    res.redirect("/signin",{ error: "Invalid credentials" });
+    
+  } else {
+    const isSamePassword = bcrypt.compareSync(password, foundUser.password);
+    if (!isSamePassword) {
+      req.flash("error", "Invalid credentials");
+      res.redirect("/signin",{ error: "Invalid credentials" });
+    } else {
+       // Authenticate the user...
+      // const userDocument = { ...foundUser };
+      const userObject = foundUser.toObject();
+// Stores the user in the session (data server side + a cookie is sent client side)
+      delete userObject.password;
+      req.session.currentUser = userObject; 
+      
+      req.flash("success", "Successfully logged in...");
+      res.redirect("/dashboard");
+    }
+  }
+});
+
+
+// router.get("/product-edit/")
 
 module.exports = router;

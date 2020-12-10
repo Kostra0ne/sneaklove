@@ -2,7 +2,6 @@ const express = require("express");
 const router = new express.Router();
 
 
-
 // / routes/auth.routes.js
  
 // nothing gets changed except the POST /login route
