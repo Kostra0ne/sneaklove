@@ -7,23 +7,26 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
-const hbo = require("hbs");
+const hbs = require("hbs");
+const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const dev_mode = false;
+const dev_mode = true; // TODO WARNING
 const logger = require("morgan");
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // config logger (pour debug)
 app.use(logger("dev"));
 
 // initial config
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/view");
-app.use(express.static("public"));
-hbs.registerPartials(__dirname + "/views/partials");
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+hbs.registerPartials(path.join(__dirname, "views/partials"));
+
 app.use(cookieParser());
 
 // SESSION SETUP
@@ -55,8 +58,17 @@ if (dev_mode === true) {
 app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
 
+// DEV MODE below !
+// app.locals.isLoggedIn = true;
+// app.locals.isAdmin = true;
+// app.locals.currentUser = {
+//   email: "yo@gui.com",
+//   password: "123",
+// };
+
 // routers
 app.use("/", require("./routes/index"));
-
+app.use("/auth", require("./routes/auth"));
+app.use("/dashboard", require("./routes/dashboard_sneaker"));
 
 module.exports = app;
