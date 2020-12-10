@@ -3,6 +3,11 @@
   "version": "2.0.0",
   "description": "A tech challenge designed to improve debugging skills and practice CRUD with express and mongo",
   "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www",
+    "server": "nodemon ./bin/www -e js,hbs"
+  },
   "dependencies": {
     "connect-mongo": "^3.0.0",
     "cookie-parser": "^1.4.4",
@@ -21,11 +26,6 @@
     "multer-storage-cloudinary": "^4.0.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www",
-    "server": "nodemon ./bin/www -e js,hbs"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"
