@@ -1,20 +1,26 @@
 const express = require("express");
 const router = express.Router();
 
-return console.log(`\n\n
+const SneakerModel = require("../models/Sneaker");
+const UserModel = require("../models/User");
+const TagModel = require("../models/Tag");
+
+console.log(`\n\n
 -----------------------------
 -----------------------------
      wax on / wax off !
 -----------------------------
------------------------------\n\n`
-);
+-----------------------------\n\n`);
 
 router.get("/", (req, res) => {
-  res.send("foo");
+  res.render("index");
 });
 
-router.get("/sneakers/:cat", (req, res) => {
+router.get("/sneakers/:cat", async (req, res) => {
   res.send("bar");
+  const AllSneakers = await SneakerModel.find();
+  console.log(AllSneakers);
+  res.render("products", { AllSneakers });
 });
 
 router.get("/one-product/:id", (req, res) => {
@@ -28,6 +34,5 @@ router.get("/signup", (req, res) => {
 router.get("/signin", (req, res) => {
   res.send("love");
 });
-
 
 module.exports = router;
