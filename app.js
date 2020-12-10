@@ -14,12 +14,8 @@ const MongoStore = require("connect-mongo")(session);
 const dev_mode = false;
 const logger = require("morgan");
 
-
-
-
 // config logger (pour debug)
 app.use(logger("dev"));
-
 
 // initial config
 app.set("view engine", "hbs");
@@ -38,23 +34,19 @@ app.use(
     store: new MongoStore({
       mongooseConnection: mongoose.connection, // you can store session infos in mongodb :)
       ttl: 24 * 60 * 60,
-       // 1 day
-      
+      // 1 day
     }),
     saveUninitialized: true,
     resave: true,
   })
 );
 
-
 // below, site_url is used in partials/shop_head.hbs to perform ajax request (var instead of hardcoded)
 app.locals.site_url = process.env.SITE_URL;
-
 
 app.use(flash());
 
 // CUSTOM MIDDLEWARES
-
 
 if (dev_mode === true) {
   app.use(require("./middlewares/devMode")); // triggers dev mode during dev phase
@@ -64,9 +56,6 @@ if (dev_mode === true) {
 app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
 
-
 app.use("/", require("./routes/index"));
-
-
 
 module.exports = app;
