@@ -42,6 +42,26 @@ try {
 }
 });
 
+//NEW ROUTE TO ACCESS CREATE FORM
+router.get("/product-add", (req, res) => {
+  res.render("products_add")
+})
+
+router.post("/product-add", async (req, res) => {
+  try {
+const {image, name, ref} = req.body
+
+const newSneaker = {image, name, ref}
+console.log(newSneaker)
+const createdSneaker = await SneakerModel.create(newSneaker);
+res.redirect("/sneakers/collection")
+  } catch (err) {
+    next(err)
+  }
+})
+
+
+
 
 router.get("/signup", (req, res) => {
   res.render("signup");
