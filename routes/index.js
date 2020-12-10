@@ -1,24 +1,32 @@
 const express = require("express");
 const router = express.Router();
+const SneakerModel = require("./../models/Sneaker");
 
-return console.log(`\n\n
------------------------------
------------------------------
-     wax on / wax off !
------------------------------
------------------------------\n\n`
-);
+//
 
 router.get("/", (req, res) => {
-  res.send("foo");
+  res.render("index");
 });
 
-router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
+//RRRRRRRRRRRRA
+router.get("/sneakers/:cat", async (req, res, next) => {
+  try {
+    const category = req.params.cat;
+    const allSneakers = await SneakerModel.find();
+    const sneakers = await SneakerModel.find({ category: req.params.cat });
+    res.render("products", { sneakers, category, allSneakers });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
+router.get("/one-product/:id", async (req, res) => {
+  try {
+    const sneaker = await SneakerModel.findById(req.params.id);
+    res.render("one_product", sneaker);
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get("/signup", (req, res) => {
@@ -28,6 +36,5 @@ router.get("/signup", (req, res) => {
 router.get("/signin", (req, res) => {
   res.send("love");
 });
-
 
 module.exports = router;

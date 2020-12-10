@@ -32,10 +32,22 @@
     {{#unless sneakers}}
     <p>Sorry, no sneakers yet !</p>
     {{/unless}}
+
+    {{#compare category "collection" operator="==="}}
+    <div id="products_grid" class="products-grid flexed-item">
+      {{#each allSneakers}}
+      {{> sneaker_mini }}
+      {{/each}}
+    </div>
+    {{/compare}}
+
+    {{#compare category "collection" operator="!="}}
     <div id="products_grid" class="products-grid flexed-item">
       {{#each sneakers}}
       {{> sneaker_mini }}
       {{/each}}
+
     </div>
+    {{/compare}}
   </section>
 </div>
