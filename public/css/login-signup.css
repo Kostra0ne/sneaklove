@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 9%;
+  padding-top: 7%;
   height: calc(100vh - (84px));
 }
 
@@ -37,7 +37,9 @@
   width: 30%;
 }
 
+
 .form-subtitle {
+  color: rgb(119, 0, 231);
 }
 
 .form-sub-infos {
@@ -56,4 +58,16 @@
 .button-link-form:hover {
   color: rgb(52, 52, 255);
   border-bottom: 1px solid rgb(52, 52, 255);
+}
+
+
+.error {
+  box-sizing: border-box;
+  color: red;
+  width: 50%;
+  overflow-wrap: break-word;
+  margin-bottom: 1%;
+  font-size: 78%;
+  text-align: center;
+
 }
