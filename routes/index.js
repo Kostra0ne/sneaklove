@@ -32,7 +32,6 @@ router.get("/sneakers/:cat", async (req, res, next) => {
   }
 });
 
-
 router.get("/one-product/:id",async (req, res, next) => {
 try {
   const sneaker = await SneakerModel.findById(req.params.id);

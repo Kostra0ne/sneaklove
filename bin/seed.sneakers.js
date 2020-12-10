@@ -15,7 +15,7 @@ const sneakers = [
     //id_tags: []
 },
 {
-    image: "https://cdn.shopify.com/s/files/1/2358/2817/products/Wethenew-Sneakers-france-Nike-Air-Force-1-Sketch-Black-Swoosh_1200x.png?v=1588271360",
+    image: "https://footdistrict.com/fr/media/extendware/ewimageopt/media/inline/d1/1/24e6dfdd115b45fff33e0d2b81ed7ca4/nike-women-s-air-max-270-react-ci3899-500-32.jpg",
     name: "Air force Woman",
     ref: "5cc1",
     size: 6,
@@ -25,7 +25,7 @@ const sneakers = [
     //id_tags: []
 },
 {
-    image: "https://cdn.shopify.com/s/files/1/2358/2817/products/Wethenew-Sneakers-france-Nike-Air-Force-1-Sketch-Black-Swoosh_1200x.png?v=1588271360",
+    image: "https://images.wave.fr/images//une-nike-air-force-1-low-shearling-pour-les-kids-7.jpg",
     name: "Air force Kids",
     ref: "5bb1",
     size: 3,
