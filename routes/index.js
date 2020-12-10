@@ -37,11 +37,11 @@ router.get("/one-product/:id", async (req, res, next) => {
 });
 
 router.get("/signup", (req, res) => {
-  res.send("sneak");
+  res.render("signup");
 });
 
 router.get("/signin", (req, res) => {
-  res.send("love");
+  res.render("signin");
 });
 
 module.exports = router;
