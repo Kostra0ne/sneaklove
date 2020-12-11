@@ -12,7 +12,7 @@ const sneakers = [
     price: 100,
     category: "men",
     id_tags: ["5fd2819fd3bedd4de2ef73e7"],
-    image: "https://lh3.googleusercontent.com/fSTHhGhDxdJ8MENpqJ0ARXWjH4YuMXUtSCKtu0ar-PrwqK-y9XRJjProjIj1_78kbKBZIGy6-g=w640-h400-e365-rj-sc0x00ffffff"
+    image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
   },
   {
     name: "pumma",
@@ -22,7 +22,7 @@ const sneakers = [
     price: 150,
     category: "women",
     id_tags: ["5fd2819fd3bedd4de2ef73e7"],
-    image: "https://lh3.googleusercontent.com/fSTHhGhDxdJ8MENpqJ0ARXWjH4YuMXUtSCKtu0ar-PrwqK-y9XRJjProjIj1_78kbKBZIGy6-g=w640-h400-e365-rj-sc0x00ffffff"
+    image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
   },
   {
     name: "addidas",
@@ -32,7 +32,7 @@ const sneakers = [
     price: 180,
     category: "kids",
     id_tags: ["5fd2819fd3bedd4de2ef73e7"],
-    image: "https://lh3.googleusercontent.com/fSTHhGhDxdJ8MENpqJ0ARXWjH4YuMXUtSCKtu0ar-PrwqK-y9XRJjProjIj1_78kbKBZIGy6-g=w640-h400-e365-rj-sc0x00ffffff"
+    image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
   },
 ];
 

@@ -5,7 +5,7 @@ const TagModel = require("./../models/Tag")
 const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 // show collections sneakers Product /dashboard
-router.get("/", async (req, res, next) => {
+router.get("/",protectPrivateRoute, async (req, res, next) => {
         try {
                 const tags = await TagModel.find()
                 const sneakers = await SneakerModel.find().populate("tag");
