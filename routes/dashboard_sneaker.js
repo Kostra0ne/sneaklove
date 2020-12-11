@@ -3,8 +3,9 @@ const router = new express.Router(); // create an app sub-module (router)
 const SneakerModel = require("../models/Sneaker");
 const TagModel = require("../models/Tag");
 const uploader = require("./../config/cloudinary");
+const protectAdminRoute = require("./../middlewares/protectPrivateRoute");
 
-router.get("/prod-add", async (req, res, next) => {
+router.get("/prod-add", protectAdminRoute, async (req, res, next) => {
   try {
     const tags = await TagModel.find();
     res.render("products_add", { tags });
@@ -47,7 +48,7 @@ router.post("/tag-add", async (req, res, next) => {
   }
 });
 
-router.get("/prod-manage", async (req, res, next) => {
+router.get("/prod-manage", protectAdminRoute, async (req, res, next) => {
   try {
     const sneakers = await SneakerModel.find();
     res.render("products_manage", { sneakers });
@@ -57,7 +58,7 @@ router.get("/prod-manage", async (req, res, next) => {
 });
 
 //GET edit
-router.get("/product-edit/:id", async (req, res, next) => {
+router.get("/product-edit/:id", protectAdminRoute, async (req, res, next) => {
   try {
     const sneaker = await SneakerModel.findById(req.params.id);
     const tags = await TagModel.find();
@@ -80,13 +81,17 @@ router.post("/prod-edit/:id", async (req, res, next) => {
   }
 });
 
-router.get("/prod-manage/delete/:id", async (req, res, next) => {
-  try {
-    const sneakers = await SneakerModel.findByIdAndDelete(req.params.id);
-    res.redirect("/dashboard_sneaker/prod-manage");
-  } catch (err) {
-    next(err);
+router.get(
+  "/prod-manage/delete/:id",
+  protectAdminRoute,
+  async (req, res, next) => {
+    try {
+      const sneakers = await SneakerModel.findByIdAndDelete(req.params.id);
+      res.redirect("/dashboard_sneaker/prod-manage");
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 module.exports = router;

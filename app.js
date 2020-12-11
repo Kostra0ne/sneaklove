@@ -62,6 +62,9 @@ app.use(require("./middlewares/exposeFlashMessage"));
 const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
 
+const authRouter = require("./routes/auth");
+app.use("/auth", authRouter);
+
 const dashboardRouter = require("./routes/dashboard_sneaker");
 app.use("/dashboard_sneaker", dashboardRouter);
 
