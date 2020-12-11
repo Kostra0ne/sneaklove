@@ -58,10 +58,12 @@ app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
 
 // routers
-app.use("/", require("./routes/index"));
+const indexRouter = require("./routes/index");
+app.use("/", indexRouter);
+// app.use("/", require("./routes/index"));
 
 //route dashboard
 const dashboardRouter = require("./routes/dashboard_sneaker");
-app.use("/", dashboardRouter);
+app.use("/dashboard", dashboardRouter);
 
 module.exports = app;
