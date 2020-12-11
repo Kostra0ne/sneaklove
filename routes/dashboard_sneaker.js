@@ -23,38 +23,43 @@ router.post("/create", async (req, res, next) => {
   const newSneaker = { ...req.body };
   try {
     await SneakerModel.create(newSneaker);
-    res.redirect("products_manage");
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get("/update/:id", async (req, res, next) => {
-  try {
-    const sneaker = await SneakerModel.findById(req.params.id); // fetch the label to update
-    res.render("product_edit", sneaker); // pass the found label to the view
-  } catch (err) {
-    next(err); // if an error occurs, display it on error.hbs page
-  }
-});
-
-router.post("/:id", async (req, res, next) => {
-  const sneakerToUpdate = { ...req.body };
-  try {
-    await SneakerModel.findByIdAndUpdate(req.params.id, sneakerToUpdate, {
-      new: true,
-    });
-    res.redirect("/dashboard/products_manage");
+    res.redirect("/dashboard");
   } catch (err) {
     next(err);
   }
 });
 
 router.get("/delete/:id", async (req, res, next) => {
+  console.log("DELETE TIME !");
   try {
     // use the model to delete one label by id
     const deleteSneaker = await SneakerModel.findByIdAndRemove(req.params.id);
     res.redirect("/dashboard/"); // then redirect to labels full list
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/product_edit/:id", async (req, res, next) => {
+  try {
+    const sneaker = await SneakerModel.findById(req.params.id); // fetch the label to update
+    res.render("product_edit", { sneaker }); // pass the found label to the view
+  } catch (err) {
+    next(err); // if an error occurs, display it on error.hbs page
+  }
+});
+
+router.post("/product_edit/:id", async (req, res, next) => {
+  const sneaker = { ...req.body };
+  try {
+    await SneakerModel.findByIdAndUpdate(
+      req.params.id,
+      { sneaker },
+      {
+        new: true,
+      }
+    );
+    res.redirect("/dashboard/product_edit/");
   } catch (err) {
     next(err);
   }

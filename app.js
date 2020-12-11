@@ -58,6 +58,7 @@ app.use(require("./middlewares/exposeFlashMessage"));
 // routers
 app.use("/", require("./routes/index"));
 app.use("/dashboard", require("./routes/dashboard_sneaker"));
+app.use("/", require("./routes/auth"));
 
 //app.listen(process.env.PORT, () => {
 //  console.log("http://localhost:" + process.env.PORT);
