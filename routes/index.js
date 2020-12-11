@@ -67,7 +67,7 @@ router.get("/one-product/:id", async (req, res, next) => {
 });
 
 router.get("/prod-add", protectPrivateRoute, async (req, res, next) => {
-  console.log(req.session, "tototot");
+
   try {
     const tags = await TagModel.find();
     res.render("products_add", { tags })
@@ -195,9 +195,5 @@ router.get("/logout", async (req, res, next) => {
 });
 
 
-router.post("/tag-add", async(req, res, next) => {
-  console.log(req.body);
-  await TagModel.create(req.body);
-});
 
 module.exports = router;

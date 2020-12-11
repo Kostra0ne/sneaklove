@@ -11,7 +11,7 @@ const sneakers = [
     description: "abc",
     price: 100,
     category: "men",
-    id_tags: ["5fd2819fd3bedd4de2ef73e7"],
+    id_tags: ["5fd3de033883f22b5d348729"],
     image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
   },
   {
@@ -21,7 +21,7 @@ const sneakers = [
     description: "def",
     price: 150,
     category: "women",
-    id_tags: ["5fd2819fd3bedd4de2ef73e7"],
+    id_tags: ["5fd3de033883f22b5d348729"],
     image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
   },
   {
@@ -31,7 +31,17 @@ const sneakers = [
     description: "ghi",
     price: 180,
     category: "kids",
-    id_tags: ["5fd2819fd3bedd4de2ef73e7"],
+    id_tags: ["5fd3de033883f22b5d348729"],
+    image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
+  },
+  {
+    name: "lala",
+    ref: "lala",
+    size: 12,
+    description: "ghi",
+    price: 180,
+    category: "kids",
+    id_tags: ["5fd3de033883f22b5d34872a"],
     image: "https://static.nike.com/a/images/w_1536,c_limit/9de44154-c8c3-4f77-b47e-d992b7b96379/image.jpg"
   },
 ];
@@ -49,3 +59,4 @@ async function insertLabels() {
 }
 
 insertLabels();
+
