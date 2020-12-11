@@ -60,7 +60,7 @@ app.use(require("./middlewares/exposeFlashMessage"));
 
 // routers
 app.use("/", require("./routes/index"));
-app.use("/dashboard_sneaker", require("./routes/dashboard_sneaker"));
-app.use("/auth", require("./routes/auth"));
+app.use("/", require("./routes/dashboard_sneaker"));
+app.use("/", require("./routes/auth"));
 
 module.exports = app;
