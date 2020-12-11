@@ -39,18 +39,18 @@ router.get("/signin", (req, res) => {
 // *************END***********
 
 // *************SIGNUP TRAITMENT***********
-router.post("/signup", async (req, res, next) => {
+router.post("/signin", async (req, res, next) => {
   const { email, password } = req.body;
   const foundUser = await User.findOne({ email: email });
 
   if (!foundUser) {
     req.flash("error", "Invalid credentials");
-    res.redirect("/auth/signin");
+    res.redirect("/signin");
   } else {
     const isSamePassword = bcrypt.compareSync(password, foundUser.password);
     if (!isSamePassword) {
       req.flash("error", "Invalid credentials");
-      res.redirect("/auth/signin");
+      res.redirect("/signin");
     } else {
       // Authenticate the user...
       const userDocument = { ...foundUser };
@@ -58,9 +58,18 @@ router.post("/signup", async (req, res, next) => {
       delete userObject.password;
       req.session.currentUser = userObject;
       req.flash("success", "Successfully logged in...");
-      res.redirect("/home");
+      res.redirect("/");
     }
   }
 });
 // *************END***********
+
+// *************LOGOUT TRAITMENT***********
+router.get("/logout", async (req, res, next) => {
+  req.session.destroy(function (err) {
+    // cannot access session here
+    // console.log(req.session.currentUser);
+    res.redirect("/signin");
+  });
+});
 module.exports = router;

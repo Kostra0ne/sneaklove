@@ -1,18 +1,25 @@
 <td class="table-division">
-  <div><img src="{{this.image}}" alt="img" class="table-image" /></div>
+  <div><img src="{{this.image}}" alt="img" class="table-image"></div>
 </td>
+
 <td class="table-division">
   <div>{{this.name}}</div>
 </td>
+
 <td class="table-division">
   <div>{{this.ref}}</div>
 </td>
+
 <td class="table-division">
   <div>${{this.price}}</div>
 </td>
+
 <td class="table-division">
-  <a href="/product-edit/{{this._id}}" data-id-sneaker="{{this._id}}" class="fa fa-edit table-icon"></a>
+  <a href="/products_edit/{{this._id}}"> <i data-id-sneaker="{{this._id}}" class="fa fa-edit table-icon"></i></a>
 </td>
+
 <td class="table-division">
-  <span class="fa fa-trash table-icon" data-id-sneaker="{{this._id}}"  aria-hidden="true"></span>
+  <a href="/products_manage/{{this._id}}"> <i class="fa fa-trash table-icon" data-id-sneaker="{{this._id}}"
+      aria-hidden="true">
+    </i></a>
 </td>

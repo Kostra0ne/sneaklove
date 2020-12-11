@@ -15,7 +15,8 @@
     <tbody>
       {{#each sneakers}}
       <tr class="table-row">
-        {{> dashboard_sneaker_row}}
+        {{!-- {{this._id}} --}}
+        {{> dashboard_sneaker_row this}}
       </tr>
       {{/each}}
       {{#unless sneakers}}
