@@ -25,6 +25,14 @@ function formatData() {
 
 //collection selectors
 
+function emptyProduct() {
+  productInfo.innerHTML = "";
+}
+
+tagList.forEach((element) => {
+  element.addEventListener("input", () => emptyProduct());
+});
+
 // function test(id) {
 //   axios
 //     .get("http://localhost:8866/api/tags" + id)
