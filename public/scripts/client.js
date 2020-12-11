@@ -23,25 +23,18 @@ function formatData() {
   return label;
 }
 
-sendTag();
-
 //collection selectors
 
-// function emptyProduct() {
-//   productInfo.innerHTML = "";
-// }
+ga
+  // function test(id) {
+  //   axios
+  //     .get("http://localhost:8866/api/tags" + id)
+  //     .then((result) => {
+  //       console.log(result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
-// tagList.forEach((element) => {
-//   element.addEventListener("input", () => emptyProduct());
-// });
-
-// function test(id) {
-//   axios
-//     .get("http://localhost:8866/api/tags" + id)
-//     .then((result) => {
-//       console.log(result);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
+  .sendTag();
