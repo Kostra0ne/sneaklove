@@ -57,5 +57,6 @@ app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
 
 app.use("/", require("./routes/index"));
+app.use("/", require("./routes/auth"));
 
 module.exports = app;
