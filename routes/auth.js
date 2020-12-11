@@ -7,7 +7,7 @@ const router = new express.Router();
 // nothing gets changed except the POST /login route
  
 // .post() login route ==> to process form data
-router.post('/login', (req, res, next) => {
+router.post('/signin', (req, res, next) => {
   console.log('SESSION =====> ', req.session);
  
   // req.body destructuring

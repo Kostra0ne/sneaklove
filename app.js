@@ -60,6 +60,6 @@ app.use("/", require("./routes/index"));
 app.use("/dashboard", require("./routes/dashboard_sneaker"));
 
 //auth
-app.use("/",require("./routes/auth")); 
+// app.use("/",require("./routes/auth")); 
 
 module.exports = app;

@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const UserModel = require("../models/User");
 const SneakerModel = require("./../models/Sneaker");
 const TagModel = require("./../models/Tag");
-const protectAdminRoute = require("./../middlewares/exposeLoginStatus")
+// const protectAdminRoute = require("./../middlewares/exposeLoginStatus")
 const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 
@@ -55,6 +55,7 @@ router.get("/prod-manage",protectPrivateRoute, async (req, res, next) => {
   }
 })
 
+
 router.get("/one-product/:id", async (req, res, next) => {
   try {
     const sneaker = await SneakerModel.findById(req.params.id);
@@ -66,9 +67,11 @@ router.get("/one-product/:id", async (req, res, next) => {
 });
 
 router.get("/prod-add", protectPrivateRoute, async (req, res, next) => {
+  console.log(req.session, "tototot");
   try {
     const tags = await TagModel.find();
     res.render("products_add", { tags })
+  
   } catch (err) {
     next(err)
   }
@@ -88,6 +91,8 @@ router.post("/prod-add", protectPrivateRoute, fileUploader.single("image"), asyn
     next(err)
   }
 });
+
+
 
 
 router.get("/prod-edit/:id", protectPrivateRoute, async (req, res, next) => {
@@ -189,6 +194,10 @@ router.get("/logout", async (req, res, next) => {
   });
 });
 
-// router.get("/product-edit/")
+
+router.post("/tag-add", async(req, res, next) => {
+  console.log(req.body);
+  await TagModel.create(req.body);
+});
 
 module.exports = router;
