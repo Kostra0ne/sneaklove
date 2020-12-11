@@ -10,7 +10,7 @@ router.get("/create", (req, res) => {
   res.render("products_add");
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   res.render("products_manage");
 });
 
@@ -21,10 +21,9 @@ router.post(
     const newSneak = { ...req.body };
     if (!req.file) newSneak.logo = undefined;
     else newSneak.image = req.file.path;
-
     try {
       await SneakerModel.create(newSneak);
-      res.redirect("/dashboard");
+      res.redirect("/dashboard", { newSneak });
     } catch (error) {
       next(error);
     }
