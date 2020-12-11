@@ -25,16 +25,15 @@ function formatData() {
 
 //collection selectors
 
-ga
-  // function test(id) {
-  //   axios
-  //     .get("http://localhost:8866/api/tags" + id)
-  //     .then((result) => {
-  //       console.log(result);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+// function test(id) {
+//   axios
+//     .get("http://localhost:8866/api/tags" + id)
+//     .then((result) => {
+//       console.log(result);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// }
 
-  .sendTag();
+sendTag();
