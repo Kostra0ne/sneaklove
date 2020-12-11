@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 60000 }, // in millisec
+    cookie: { maxAge: 6000000 }, // in millisec
     store: new MongoStore({
       mongooseConnection: mongoose.connection, // you can store session infos in mongodb :)
       ttl: 24 * 60 * 60, // 1 day
@@ -57,5 +57,5 @@ app.use(require("./middlewares/exposeFlashMessage"));
 
 // routers
 app.use("/", require("./routes/index"));
-
+app.use("/", require("./routes/auth"));
 module.exports = app;

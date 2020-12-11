@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const SneakerModel = require("./../models/Sneaker");
 const uploader = require("./../config/cloudinary");
+const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 //
 
@@ -9,41 +10,44 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/prod-add", (req, res) => {
+router.get("/prod-add", protectPrivateRoute, (req, res) => {
   res.render("productsAdd");
 });
 
-// //// POST - /dashboard/label/create
-router.post("/prod-add", uploader.single("image"), async (req, res, next) => {
-  // if all good, multer will expose the uploaded object in req.file
-  // req.file.path leads to an URL hosting the image @cloudinary
-  const newSneaker = { ...req.body };
-  if (!req.file) {
-    newSneaker.image = undefined;
-  } else {
-    newSneaker.image = req.file.path;
+router.post(
+  "/prod-add",
+  protectPrivateRoute,
+  uploader.single("image"),
+  async (req, res, next) => {
+    const newSneaker = { ...req.body };
+    if (!req.file) {
+      newSneaker.image = undefined;
+    } else {
+      newSneaker.image = req.file.path;
+    }
+    try {
+      await SneakerModel.create(newSneaker);
+      res.redirect("/sneakers/collection");
+    } catch (err) {
+      next(err);
+    }
   }
-  try {
-    await SneakerModel.create(newSneaker);
-    res.redirect("/sneakers/collection");
-  } catch (err) {
-    next(err); // express will display the error on the provided error page (error.////hbs) (check the www file for details ....)
-  }
-});
+);
 
-//RRRRRRRRRRRRA
-router.get("/sneakers/:cat", async (req, res, next) => {
+router.get("/sneakers/:cat", protectPrivateRoute, async (req, res, next) => {
   try {
     const category = req.params.cat;
-    const allSneakers = await SneakerModel.find();
-    const sneakers = await SneakerModel.find({ category: req.params.cat });
-    res.render("products", { sneakers, category, allSneakers });
+    let sneakers =
+      category === "collection"
+        ? await SneakerModel.find()
+        : await SneakerModel.find({ category: req.params.cat });
+    res.render("products", { sneakers, category });
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/one-product/:id", async (req, res) => {
+router.get("/one-product/:id", protectPrivateRoute, async (req, res) => {
   try {
     const sneaker = await SneakerModel.findById(req.params.id);
     res.render("oneProduct", sneaker);
@@ -52,12 +56,53 @@ router.get("/one-product/:id", async (req, res) => {
   }
 });
 
-router.get("/signup", (req, res) => {
-  res.send("sneak");
+router.get("/dashboard", protectPrivateRoute, async (req, res) => {
+  try {
+    const sneakers = await SneakerModel.find();
+    res.render("productsManage", { sneakers });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get("/signin", (req, res) => {
-  res.send("love");
+router.get("/delete/:id", protectPrivateRoute, async function (req, res, next) {
+  try {
+    await SneakerModel.findByIdAndRemove(req.params.id);
+    res.redirect("/dashboard");
+  } catch (err) {
+    next(err);
+  }
 });
+
+router.get(
+  "/prod-edit/:id",
+  protectPrivateRoute,
+  async function (req, res, next) {
+    try {
+      const sneaker = await SneakerModel.findById(req.params.id);
+      console.log(req.params.id);
+      res.render("productEdit", sneaker);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.post(
+  "/prod-edit/:id",
+  protectPrivateRoute,
+  async function (req, res, next) {
+    try {
+      const updatedOne = await SneakerModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      res.redirect("/dashboard");
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 module.exports = router;
