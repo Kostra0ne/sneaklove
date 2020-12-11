@@ -51,16 +51,15 @@ router.get("/product_edit/:id", async (req, res, next) => {
 
 router.post("/product_edit/:id", async (req, res, next) => {
   const sneaker = { ...req.body };
+  console.log("here :)", sneaker);
   try {
-    await SneakerModel.findByIdAndUpdate(
-      req.params.id,
-      { sneaker },
-      {
-        new: true,
-      }
-    );
-    res.redirect("/dashboard/product_edit/");
+    const toto = await SneakerModel.findByIdAndUpdate(req.params.id, sneaker, {
+      new: true,
+    });
+    console.log("********");
+    res.redirect("/dashboard");
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });

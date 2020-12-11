@@ -76,7 +76,7 @@ router.get("/signout", async (req, res, next) => {
   req.session.destroy(function (err) {
     // cannot access session here
     // console.log(req.session.currentUser);
-    res.redirect("/home");
+    res.redirect("/signout");
   });
 });
 
