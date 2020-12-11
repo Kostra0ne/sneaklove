@@ -17,12 +17,12 @@
   <section class="products-wrapper">
     <div class="products-infos">
       <h4 class="products-title">
-        {{#compare category "collection" operator="==="}}
-        Whole
-        {{/compare}}
-        {{#compare category "collection" operator="!="}}
-        {{category}}
-        {{/compare}}
+      {{#compare category "collection" operator="==="}}
+      <p>{{sneakers.category}}</p> 
+      {{/compare}}
+      {{#compare category "collection" operator="!="}}
+      <p>Whole</p>
+      {{/compare}}
         collection <span id="products_count" class="products-count">({{sneakers.length}})</span>
       </h4>
       <p class="products-subtitle">Prepare for your miles with the latest styles and colors of women’s running shoes.
