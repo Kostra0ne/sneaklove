@@ -10,7 +10,8 @@ const SneakerSchema = new Schema({
   category: { type: String, enum: ["kids", "men", "women"] },
   image: {
     type: String,
-    default: "/medias/img/shoe.png",
+    default:
+      "https://res.cloudinary.com/dke1st5wz/image/upload/v1607328768/sample.jpg",
   },
   id_tags: [{ type: Schema.Types.ObjectId, ref: "tag" }],
 });

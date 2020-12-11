@@ -1,6 +1,10 @@
 const express = require("express");
+const app = require("../app");
 const router = new express.Router();
 const SneakersModel = require("./../models/Sneaker");
+
+//Request auth route
+router.use("/signin", require("./../routes/auth"));
 
 // console.log(`\n\n
 // -----------------------------
@@ -62,7 +66,7 @@ router.get("/sneakers/women", async (req, res, next) => {
 });
 // *****************END*************************
 
-// ************************
+// *************Display all details by element***********
 router.get("/one-product/:id", async (req, res, next) => {
   try {
     const oneProduct = await SneakersModel.findById(req.params.id);
@@ -71,13 +75,6 @@ router.get("/one-product/:id", async (req, res, next) => {
     next(error);
   }
 });
-
-router.get("/signup", (req, res) => {
-  res.send("sneak");
-});
-
-router.get("/signin", (req, res) => {
-  res.send("love");
-});
+// *****************END*************************
 
 module.exports = router;
