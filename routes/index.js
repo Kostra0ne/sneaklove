@@ -8,20 +8,29 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/sneakers/collection", async (req, res, next) => {
+router.get("/api/sneakers", async (req, res) => {
   try {
-    const sneakers = await SneakerModel.find();
-    const tags = await TagModel.find();
-    res.render("products", { sneakers, tags });
+    res.json(await SneakerModel.find());
   } catch (err) {
-    next(err);
+    res.json(err);
+  }
+});
+
+router.get("/api/tags", async (req, res) => {
+  try {
+    res.json(await TagModel.find());
+  } catch (err) {
+    res.json(err);
   }
 });
 
 router.get("/sneakers/:cat", async (req, res, next) => {
   try {
     const category = req.params.cat;
-    const sneakers = await SneakerModel.find({ category });
+    let sneakers;
+    category === "collection"
+      ? (sneakers = await SneakerModel.find())
+      : (sneakers = await SneakerModel.find({ category }));
     const tags = await TagModel.find();
     res.render("products", { category, sneakers, tags });
   } catch (err) {
@@ -42,14 +51,6 @@ router.get("/sneakers/collection/:id", async (req, res, next) => {
   const tags = await TagModel.find();
   const sneakers = await SneakerModel.find({ id_tags: tag });
   res.render("products", { sneakers, tags });
-});
-
-router.get("/signup", (req, res) => {
-  res.render("signup");
-});
-
-router.get("/signin", (req, res) => {
-  res.render("signin");
 });
 
 module.exports = router;
