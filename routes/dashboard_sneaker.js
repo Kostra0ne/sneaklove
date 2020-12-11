@@ -11,7 +11,12 @@ router.get("/create", (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  res.render("products_manage");
+    try {
+        const sneakers = await SneakerModel.find();
+  res.render("products_manage", { sneakers });
+    } catch (error) {
+        next(error);
+    }
 });
 
 router.post(
@@ -21,20 +26,22 @@ router.post(
     const newSneak = { ...req.body };
     if (!req.file) newSneak.logo = undefined;
     else newSneak.image = req.file.path;
+    console.log(newSneak);
     try {
       await SneakerModel.create(newSneak);
-      res.redirect("/dashboard", { newSneak });
+      res.redirect("/dashboard");
     } catch (error) {
       next(error);
     }
   }
 );
 
-router.post("/update/:id", async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
+router.get("/update/:id", async (req, res, next) =>{
+    try {
+        res.render("product_edit", await SneakerModel.findById(req.params.id));
+    } catch (error) {
+        next(error)
+    }
 });
 
 router.get("/delete/:id", async (req, res, next) => {
@@ -45,4 +52,16 @@ router.get("/delete/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+router.post("/:id", async (req, res, next) => {
+    try {
+        const sneakers = { ...req.body };
+        await SneakerModel.findByIdAndUpdate(req.params.id, sneakers);
+        res.redirect("/dashboard")
+    } catch (error) {
+      next(error);
+    }
+  });
+
+
 module.exports = router;
