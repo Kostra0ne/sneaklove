@@ -1,13 +1,15 @@
 require("dotenv").config();
-require("./config/mongodb"); // database initial setup
+
+require("./config/mongo"); // database initial setup
 require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const flash = require("connect-flash");
-const hbo = require("hbs");
+const hbs = require("hbs");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -16,12 +18,12 @@ const logger = require("morgan");
 
 // config logger (pour debug)
 app.use(logger("dev"));
-
+// console.log(process.env.MONGO_URI);
 // initial config
+app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/view");
+hbs.registerPartials(path.join(__dirname, "/views/partial"));
 app.use(express.static("public"));
-hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
@@ -56,7 +58,16 @@ app.use(require("./middlewares/exposeLoginStatus"));
 app.use(require("./middlewares/exposeFlashMessage"));
 
 // routers
-app.use("/", require("./routes/index"));
+const indexRouter = require("./routes/index");
+app.use("/", indexRouter);
+// app.use("/", require("./routes/index"));
 
+//route dashboard
+const dashboardRouter = require("./routes/dashboard_sneaker");
+app.use("/dashboard", dashboardRouter);
+
+// route AUTH
+const authRouter = require("./routes/auth");
+app.use("/", authRouter);
 
 module.exports = app;
