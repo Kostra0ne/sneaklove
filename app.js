@@ -66,8 +66,8 @@ app.use("/", indexRouter);
 const dashboardRouter = require("./routes/dashboard_sneaker");
 app.use("/dashboard", dashboardRouter);
 
-//route AUTH
-// const authRouter = require("./routes/auth");
-// app.use("/auth", authRouter);
+// route AUTH
+const authRouter = require("./routes/auth");
+app.use("/", authRouter);
 
 module.exports = app;
