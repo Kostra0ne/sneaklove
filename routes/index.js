@@ -21,16 +21,22 @@ router.get("/", (req, res) => {
 
 router.get("/sneakers/:cat", async (req, res, next) => {
   if (req.params.cat === "collection") {
+
     try {
-      const sneakers = await SneakerModel.find();
-      res.render("products", { sneakers });
+      const tags = await TagModel.find()
+      const sneakers = await SneakerModel.find().populate("tag");
+      console.log(sneakers[0].id_tags)
+      res.render("products", { sneakers, tags });
     } catch (err) {
       next(err);
     }
+
+
   } else {
     try {
-      const sneakers = await SneakerModel.find({ category: req.params.cat });
-      res.render("products", { sneakers });
+      const sneakers = await SneakerModel.find({ category: req.params.cat }).populate("tag");
+      const tags = await TagModel.find()
+      res.render("products", { sneakers, tags });
     } catch (err) {
       next(err);
     }
@@ -55,7 +61,7 @@ router.get("/prod-add", async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-// scripts: ['clients.js']
+  // scripts: ['clients.js']
 });
 
 router.post("/prod-add", fileUploader.single("image"), async (req, res, next) => {
@@ -93,14 +99,14 @@ router.post("/prod-edit/:id", async (req, res, next) => {
   }
 });
 
-router.get("/prod-manage", async (req, res, next) => {
-  try {
-    const sneakers = await SneakerModel.find();
-    res.render("products_manage", { sneakers })
-  } catch (err) {
-    next(err);
-  }
-})
+// router.get("/prod-manage", async (req, res, next) => {
+//   try {
+//     const sneakers = await SneakerModel.find();
+//     res.render("products_manage", { sneakers })
+//   } catch (err) {
+//     next(err);
+//   }
+// })
 
 router.get("/prod-delete':id", async (req, res, next) => {
   try {
