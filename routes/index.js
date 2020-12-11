@@ -41,8 +41,14 @@ router.get("/sneakers/:tartuff", async (req, res, next) => {
   }
 });
 
-router.get("/one-product/:id", (req, res) => {
+router.get("/one-product/:id", async (req, res) => {
   res.send("baz");
+  try {
+    const sneakers = await SneakerModel.findById({ category: req.params.Id });
+    res.render("one_product", { sneakers });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/signup", (req, res) => {
