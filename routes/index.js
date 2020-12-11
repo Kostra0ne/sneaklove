@@ -14,6 +14,13 @@ console.log(`\n\n
 
 // 
 
+
+router.get(["/", "/home"], async (req, res, next) => {
+   res.render("index")
+});
+
+
+
 router.get("/sneakers/collection", async (req, res, next) => {
   try {
     const sneakers = await SneakerModel.find();
@@ -52,11 +59,11 @@ router.get("/one-product/:id", async (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-  res.send("sneak");
+  res.render("signup");
 });
 
 router.get("/signin", (req, res) => {
-  res.send("love");
+  res.render("signin");
 });
 
 module.exports = router;
