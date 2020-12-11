@@ -5,7 +5,9 @@ const bcrypt = require("bcrypt");
 const UserModel = require("../models/User");
 const SneakerModel = require("./../models/Sneaker");
 const TagModel = require("./../models/Tag");
+// const protectAdminRoute = require("./../middlewares/exposeLoginStatus")
 const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
+
 
 console.log(`\n\n
 -----------------------------
@@ -43,6 +45,15 @@ router.get("/sneakers/:cat", async (req, res, next) => {
   }
 
 });
+
+router.get("/prod-manage", async (req, res, next) => {
+  try {
+    const sneakers = await SneakerModel.find();
+    res.render("products_manage", { sneakers })
+  } catch (err) {
+    next(err);
+  }
+})
 
 router.get("/one-product/:id", async (req, res, next) => {
   try {
@@ -99,19 +110,11 @@ router.post("/prod-edit/:id", async (req, res, next) => {
   }
 });
 
-// router.get("/prod-manage", async (req, res, next) => {
-//   try {
-//     const sneakers = await SneakerModel.find();
-//     res.render("products_manage", { sneakers })
-//   } catch (err) {
-//     next(err);
-//   }
-// })
 
-router.get("/prod-delete':id", async (req, res, next) => {
+router.get("/prod-delete/:id", async (req, res, next) => {
   try {
-    const sneaker = await sneakerModel.findById(req.params.id);
-    res.render("product_edit", { sneaker });
+    await SneakerModel.findByIdAndRemove(req.params.id);
+    res.redirect("/dashboard");
   } catch (err) {
     next(err);
   }
@@ -153,16 +156,17 @@ router.get("/signin", (req, res) => {
 
 router.post("/signin", async (req, res, next) => {
   const { email, password } = req.body;
-  const foundUser = await User.findOne({ email: email });
+  const foundUser = await UserModel.findOne({ email: email });
+  console.log(foundUser);
   if (!foundUser) {
     req.flash("error", "Invalid credentials");
-    res.redirect("/signin", { error: "Invalid credentials" });
+    res.redirect("/signin");
 
   } else {
     const isSamePassword = bcrypt.compareSync(password, foundUser.password);
     if (!isSamePassword) {
       req.flash("error", "Invalid credentials");
-      res.redirect("/signin", { error: "Invalid credentials" });
+      res.redirect("/signin");
     } else {
       // Authenticate the user...
       // const userDocument = { ...foundUser };
@@ -177,6 +181,13 @@ router.post("/signin", async (req, res, next) => {
   }
 });
 
+
+//logout
+router.get("/logout", async (req, res, next) => {
+  req.session.destroy(function (err) {
+    res.redirect("/signin");
+  });
+});
 
 // router.get("/product-edit/")
 

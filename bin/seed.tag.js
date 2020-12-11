@@ -7,23 +7,12 @@ const TagsModel = require("../models/Tag");
 
 const tags = [
         {
-                name: "aaaa",
-                lastname: "aaaa",
-                email: "aaa@gmail.com",
-                password: "aaa"
+                label: "bbbb"
         },
         {
-                name: "bbbb",
-                lastname: "bbbb",
-                email: "bbbb@gmail.com",
-                password: "bbbb"
+                label: "aaaa"
         },
-        {
-                name: "cccc",
-                lastname: "cccc",
-                email: "cccc@gmail.com",
-                password: "cccc"
-        }
+
 ]
 
 
