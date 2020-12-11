@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const UserModel = require("../models/User");
 const SneakerModel = require("./../models/Sneaker");
 const TagModel = require("./../models/Tag");
-const flash = require("connect-flash");
+const protectPrivateRoute = require("./../middlewares/protectPrivateRoute");
 
 console.log(`\n\n
 -----------------------------
@@ -27,23 +27,9 @@ router.get("/sneakers/:cat", async (req, res, next) => {
     } catch (err) {
       next(err);
     }
-  } else if (req.params.cat === "men") {
+  } else {
     try {
-      const sneakers = await SneakerModel.find({ category: "men" });
-      res.render("products", { sneakers });
-    } catch (err) {
-      next(err);
-    }
-  } else if (req.params.cat === "women") {
-    try {
-      const sneakers = await SneakerModel.find({ category: "women" });
-      res.render("products", { sneakers });
-    } catch (err) {
-      next(err);
-    }
-  } else if (req.params.cat === "kids") {
-    try {
-      const sneakers = await SneakerModel.find({ category: "kids" });
+      const sneakers = await SneakerModel.find({ category: req.params.cat });
       res.render("products", { sneakers });
     } catch (err) {
       next(err);
@@ -69,7 +55,7 @@ router.get("/prod-add", async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-
+// scripts: ['clients.js']
 });
 
 router.post("/prod-add", fileUploader.single("image"), async (req, res, next) => {
@@ -107,6 +93,24 @@ router.post("/prod-edit/:id", async (req, res, next) => {
   }
 });
 
+router.get("/prod-manage", async (req, res, next) => {
+  try {
+    const sneakers = await SneakerModel.find();
+    res.render("products_manage", { sneakers })
+  } catch (err) {
+    next(err);
+  }
+})
+
+router.get("/prod-delete':id", async (req, res, next) => {
+  try {
+    const sneaker = await sneakerModel.findById(req.params.id);
+    res.render("product_edit", { sneaker });
+  } catch (err) {
+    next(err);
+  }
+})
+
 
 
 router.get("/signup", (req, res) => {
@@ -115,16 +119,16 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", async (req, res, next) => {
   // console.log(req.body)
-  try{
-    const newUser = {...req.body};
+  try {
+    const newUser = { ...req.body };
     // console.log({newUser})
-    const foundUser = await UserModel.findOne({email: newUser.email});
+    const foundUser = await UserModel.findOne({ email: newUser.email });
 
-    if(foundUser){
+    if (foundUser) {
       console.log("found")
       req.flash("warning", "Email already registered");
       res.redirect("/signup");
-    }else{
+    } else {
       console.log("new")
       const hashedPassword = bcrypt.hashSync(newUser.password, 10);
       newUser.password = hashedPassword;
@@ -132,7 +136,7 @@ router.post("/signup", async (req, res, next) => {
       req.flash("success", "Congrats ! You are now registered !");
       res.redirect("/dashboard");
     }
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })
@@ -141,26 +145,26 @@ router.get("/signin", (req, res) => {
   res.render("signin")
 });
 
-router.post("/signin", async(req, res, next) => {
+router.post("/signin", async (req, res, next) => {
   const { email, password } = req.body;
   const foundUser = await User.findOne({ email: email });
   if (!foundUser) {
     req.flash("error", "Invalid credentials");
-    res.redirect("/signin",{ error: "Invalid credentials" });
-    
+    res.redirect("/signin", { error: "Invalid credentials" });
+
   } else {
     const isSamePassword = bcrypt.compareSync(password, foundUser.password);
     if (!isSamePassword) {
       req.flash("error", "Invalid credentials");
-      res.redirect("/signin",{ error: "Invalid credentials" });
+      res.redirect("/signin", { error: "Invalid credentials" });
     } else {
-       // Authenticate the user...
+      // Authenticate the user...
       // const userDocument = { ...foundUser };
       const userObject = foundUser.toObject();
-// Stores the user in the session (data server side + a cookie is sent client side)
+      // Stores the user in the session (data server side + a cookie is sent client side)
       delete userObject.password;
-      req.session.currentUser = userObject; 
-      
+      req.session.currentUser = userObject;
+
       req.flash("success", "Successfully logged in...");
       res.redirect("/dashboard");
     }
