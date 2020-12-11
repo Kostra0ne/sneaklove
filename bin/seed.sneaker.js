@@ -12,7 +12,7 @@ const styles = [
     description: "shoes",
     price: 100,
     category: "women",
-    id_tags: "5fd245daacc7b145c31a695a",
+    id_tags: "5fd2ca850f6dea70dc0eba49",
   },
 
   {
@@ -22,7 +22,7 @@ const styles = [
     description: "shoes",
     price: 110,
     category: "men",
-    id_tags: "5fd245daacc7b145c31a695a",
+    id_tags: "5fd2ca850f6dea70dc0eba49",
   },
   {
     name: "nike",
@@ -31,7 +31,7 @@ const styles = [
     description: "shoes",
     price: 130,
     category: "kids",
-    id_tags: "5fd245daacc7b145c31a695a",
+    id_tags: "5fd2ca850f6dea70dc0eba48",
   },
 ];
 
