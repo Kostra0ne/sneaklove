@@ -1,20 +1,21 @@
 const tagButton = document.querySelector("#btn_new_tag");
 const tagInput = document.querySelector("#new_tag_name");
+const tagList = document.querySelectorAll(".tag-list-item");
+const productInfo = document.querySelector("#products_grid");
 
-async function sendTag() {
+function sendTag() {
   tagButton.addEventListener("click", async () => {
     const formTag = formatData();
+    tagInput.value = "";
+    console.log(formTag);
     try {
-      await axios.post("/api/sneakers", formTag);
-      emptyInput();
+      await axios.post("http://localhost:8866/api/tags", {
+        label: `${formTag}`,
+      });
     } catch (err) {
       console.error(err);
     }
   });
-}
-
-function emptyInput() {
-  tagInput.value = "";
 }
 
 function formatData() {
@@ -22,8 +23,9 @@ function formatData() {
   return label;
 }
 
-// const tagList = document.querySelectorAll(".tag-list-item");
-// const productInfo = document.querySelector("#products_grid");
+sendTag();
+
+//collection selectors
 
 // function emptyProduct() {
 //   productInfo.innerHTML = "";
@@ -35,7 +37,7 @@ function formatData() {
 
 // function test(id) {
 //   axios
-//     .get("http://localhost:8866/tags" + id)
+//     .get("http://localhost:8866/api/tags" + id)
 //     .then((result) => {
 //       console.log(result);
 //     })

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = new express.Router();
 const SneakerModel = require("./../models/Sneaker");
-const UserModel = require("./../models/User");
 const TagModel = require("./../models/Tag");
 
 router.get("/", (req, res) => {
@@ -21,6 +20,14 @@ router.get("/api/tags", async (req, res) => {
     res.json(await TagModel.find());
   } catch (err) {
     res.json(err);
+  }
+});
+
+router.post("/api/tags", async (req, res) => {
+  try {
+    await TagModel.create(req.body);
+  } catch (error) {
+    res.json(error);
   }
 });
 
