@@ -11,12 +11,12 @@ router.get("/create", (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    try {
-        const sneakers = await SneakerModel.find();
-  res.render("products_manage", { sneakers });
-    } catch (error) {
-        next(error);
-    }
+  try {
+    const sneakers = await SneakerModel.find();
+    res.render("products_manage", { sneakers });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post(
@@ -36,12 +36,12 @@ router.post(
   }
 );
 
-router.get("/update/:id", async (req, res, next) =>{
-    try {
-        res.render("product_edit", await SneakerModel.findById(req.params.id));
-    } catch (error) {
-        next(error)
-    }
+router.get("/update/:id", async (req, res, next) => {
+  try {
+    res.render("product_edit", await SneakerModel.findById(req.params.id));
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/delete/:id", async (req, res, next) => {
@@ -53,15 +53,16 @@ router.get("/delete/:id", async (req, res, next) => {
   }
 });
 
-router.post("/:id", async (req, res, next) => {
-    try {
-        const sneakers = { ...req.body };
-        await SneakerModel.findByIdAndUpdate(req.params.id, sneakers);
-        res.redirect("/dashboard")
-    } catch (error) {
-      next(error);
-    }
-  });
-
+router.post("/update/:id", async (req, res, next) => {
+  try {
+    const sneakers = { ...req.body };
+    await SneakerModel.findByIdAndUpdate(req.params.id, sneakers, {
+      new: true,
+    });
+    res.redirect("/dashboard");
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
