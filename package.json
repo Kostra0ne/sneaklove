@@ -20,7 +20,6 @@
     "morgan": "^1.10.0",
     "multer-storage-cloudinary": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www",
