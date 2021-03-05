@@ -17,6 +17,16 @@ router.post('/prod-add', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
+router.get('/prod-manage', (req, res, next) => {
+   
+    SneakersModel.find()
+    .then((dbRes) => {
+        res.render('products_manage.hbs', {sneakers: dbRes})
+    })
+    .catch(next);
+
+})
+
 
 
 
