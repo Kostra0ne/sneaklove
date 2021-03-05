@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const SneakersModel = require("./../models/Sneaker");
+const UsersModel = require("./../models/User");
 
+const bcrypt = require("bcrypt");
 // return console.log(`\n\n
 // -----------------------------
 // -----------------------------
@@ -59,7 +61,34 @@ router.get("/one-product/:id", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-  res.send("sneak");
+  res.render("signup.hbs");
+
+});
+
+router.post("/signup", async (req, res, next) => {
+  try {
+    const newUser = {...req.body };
+    const foundUser = await UsersModel.findOne({email: newUser.email});
+    if(foundUser){
+      req.flash('warning','email already in use.');
+      res.redirect('/signin')
+      console.log("Already in the DB");
+    }else {
+      console.log("NewUSer Password" + newUser);
+      const hashedPassword= bcrypt.hashSync(newUser.password, 10)
+      
+      newUser.password = hashedPassword;
+      
+
+      await UsersModel.create(newUser);
+      res.redirect('signin')
+      console.log("New User" + newUser)
+    }
+  } catch(err) {
+    next(err)
+    console.log(err);
+  }
+
 });
 
 router.get("/signin", (req, res) => {
