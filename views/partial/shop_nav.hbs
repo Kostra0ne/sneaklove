@@ -37,15 +37,12 @@
       </div>
       <div class="flexed-item nav-end">
         {{#unless isLoggedIn}}
-          {{#if currentUser}}
           <a  href="/signin" id="nav_login" class="button-ternary flexed-item nav-end-item">
           <span class="btn-text">Sign in</span>
-        </a>
-          {{else}}
+          </a>
           <a  href="/signup" id="nav_login" class="button-ternary flexed-item nav-end-item">
           <span class="btn-text">Sign up</span>
-        </a>
-          {{/if}}
+          </a>
         {{/unless}}
         {{#if isLoggedIn}}
         <a  href="/logout" id="nav_logout" class="button-ternary flexed-item nav-end-item">

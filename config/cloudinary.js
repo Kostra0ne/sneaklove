@@ -11,7 +11,12 @@ cloudinary.config({
 
 // cloudinary : SAAS platform : specialized in images hosting (tools : metadata, image analyzing ...)
 const storage = new CloudinaryStorage({
-  cloudinary: cloudinary
+  cloudinary: cloudinary,
+  folder: "sneaklove",
+  allowedFormats: ['jpg', 'jpeg', 'png'],
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // The file on cloudinary would have the same name as the original file name
+  }
 });
 
 const uploader = multer({ storage });

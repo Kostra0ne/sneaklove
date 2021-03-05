@@ -12,11 +12,8 @@ router.get("/prod-add", async (req, res, next) => {
 
 router.post("/prod-add", uploader.single("image"), (req, res, next) => {
     const newSneaker = {...req.body};
-    console.log(req.body);
-    console.log("REQ.FILE:"+req.file);
     if (!req.file) newSneaker.image = undefined;
     else {
-        console.log(req.file.path);
         newSneaker.image = req.file.path
     };
     SneakerModel.create(newSneaker)
@@ -25,23 +22,34 @@ router.post("/prod-add", uploader.single("image"), (req, res, next) => {
 });
 
 // EDIT SNEAKER
-router.get("/edit/:id", (req, res, next)=>{
-    const tags = TagModel.find();
-    const sneakers = SneakerModel.findById(req.params.id).populate("tags")
-        .then(res.render("partial/dashboard_sneaker_row", {sneakers, tags}))
-        .catch(next)
+router.get("/prod-manage", async (req, res, next)=>{
+    try {
+      const tags = await TagModel.find();
+      const sneakers = await SneakerModel.find().populate("tags");
+      res.render("products_manage", {sneakers, tags});
+    } catch(err) { 
+      next(err);
+    }
 })
 
-router.post("/", /*uploader.single("picture"),*/ (req, res, next) =>{
-    SneakerModel.findByIdAndUpdate(req.params.id)
-        .then(res.redirect("/products"))
+router.get("/product-edit/:id", (req, res, next) => {
+  SneakerModel.findById(req.params.id)
+  .then(dbRes => res.render("product_edit", {sneaker: dbRes}))
+  .catch(next);
+})
+
+router.post("/product-edit/:id", /*uploader.single("picture"),*/ (req, res, next) =>{
+  const { name, ref, size, description, price, category, id_tags } = req.body;
+    SneakerModel.findByIdAndUpdate(req.params.id, { name, ref, size, description, price, category, id_tags }, { new: true })
+        .then(() => res.redirect("/prod-manage"))
         .catch(next)
 })
 
 // DELETE SNEAKERS
-router.delete("/:id", (res, req, next) => {
+router.get("/product-delete/:id", (req, res, next) => {
+  console.log("req params: ", req.params);
     SneakerModel.findByIdAndDelete(req.params.id)
-        .then(res.redirect("/products"))
+        .then(() => res.redirect("/prod-manage"))
         .catch(next)
 })
 
