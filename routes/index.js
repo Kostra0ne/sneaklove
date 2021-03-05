@@ -36,13 +36,4 @@ router.get("/one-product/:id", (req, res) => {
   .catch(err => console.log(err));
 });
 
-router.get("/signup", (req, res) => {
-  res.send("signup");
-});
-
-router.get("/signin", (req, res) => {
-  res.send("signin");
-});
-
-
 module.exports = router;
