@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const SneakersModel = require("./../models/Sneaker");
 
 // return console.log(`\n\n
 // -----------------------------
@@ -10,16 +11,17 @@ const router = express.Router();
 // );
 
 router.get("/", (req, res) => {
-  // return axios.get()
   res.render("index");
 });
 
 router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
+  SneakersModel.find().then((dbRes) => {
+    console.log(dbRes)
+    res.render('products.hbs', {sneakers:dbRes})
+})
 });
 
 router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
 });
 
 router.get("/signup", (req, res) => {
