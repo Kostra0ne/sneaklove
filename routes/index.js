@@ -52,7 +52,11 @@ router.get("/sneakers/kids", (req, res) => {
 
 ///
 
-router.get("/one-product/:id", (req, res) => {});
+router.get("/one-product/:id", (req, res) => {
+  SneakersModel.findById(req.params.id)
+  .then((sneaker) => res.render('one_product', {sneaker}))
+  .catch(err => console.log(err));
+});
 
 router.get("/signup", (req, res) => {
   res.send("sneak");
