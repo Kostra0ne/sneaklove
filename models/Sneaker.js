@@ -15,7 +15,11 @@ const sneakerSchema = new Schema(
         id_tags: [{
             type: Schema.Types.ObjectId,
             ref: "tags"
-        }]   
+        }],
+        image: {
+            type: String,
+            default: "http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg"
+        }
     }
 )
 

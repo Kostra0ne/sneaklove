@@ -9,7 +9,8 @@ const sneaker = [
         description: "A good sneaker to chill on the weekends",
         price: 109.99,
         category: "women",
-        id_tags: null
+        id_tags: null,
+        image: "https://res.cloudinary.com/djzcdtqi2/image/upload/v1614952125/Sneaklove/blazer-mid_scvd7x.png"
     },
     {
         name: "Adidas Superstar",
@@ -18,7 +19,8 @@ const sneaker = [
         description: "Old school sneaker back on trend",
         price: 99.99,
         category: "men",
-        id_tags: null
+        id_tags: null,
+        image: "https://res.cloudinary.com/djzcdtqi2/image/upload/v1614952125/Sneaklove/superstar_crxjz8.png"
     },
     {
         name: "Converse Chuck Taylor Allstars",
@@ -27,7 +29,8 @@ const sneaker = [
         description: "For the cool kid in high school",
         price: 59.99,
         category: "kids",
-        id_tags: null
+        id_tags: null,
+        image: "https://res.cloudinary.com/djzcdtqi2/image/upload/v1614952124/Sneaklove/chuck-taylor_rji0vi.png"
     }  
 ]
 

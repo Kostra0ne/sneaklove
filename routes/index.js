@@ -27,7 +27,6 @@ router.get("/sneakers/:cat", (req, res) => {
     .then(dbRes => res.render("products", { sneakers: dbRes }))
     .catch(err => console.log(err));
   }
-  
 });
 
 router.get("/one-product/:id", (req, res) => {
