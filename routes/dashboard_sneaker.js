@@ -24,27 +24,27 @@ router.get("/prod-manage", (req, res, next) => {
 });
 
 router.get("/prod-edit/:id", (req, res, next) => {
-    SneakersModel.findById(req.params.id)
-      .then((dbRes) => {
-        res.render("product_edit.hbs", { sneakers: dbRes });
-      })
-      .catch(next);
-  });
+  SneakersModel.findById(req.params.id)
+    .then((dbRes) => {
+      res.render("product_edit.hbs", { sneakers: dbRes });
+    })
+    .catch(next);
+});
 
-  router.get("/prod-edit/:id", (req, res, next) => {
-    SneakersModel.findByIdAndDelete(req.params.id)
-      .then(() => {
-        res.redirect("/prod-edit"); 
-      })
-      .catch(next);
-  });
+// router.get("/prod-edit/:id", (req, res, next) => {
+//   SneakersModel.findByIdAndDelete(req.params.id)
+//     .then(() => {
+//       res.redirect("/prod-edit");
+//     })
+//     .catch(next);
+// });
 
-//   router.post("/prod-edit/:id", (req, res, next) => {
-//     SneakersModel.findByIdAndUpdate(req.params.id)
-//       .then((dbRes) => {
-//         res.render("products_edit.hbs", { sneakers: dbRes });
-//       })
-//       .catch(next);
-//   });
+router.post("/prod-edit/:id", (req, res, next) => {
+  SneakersModel.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then(() => {
+      res.render("products_manage.hbs");
+    })
+    .catch(next);
+});
 
 module.exports = router;
