@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const SneakerModel = require("./../models/Sneaker");
 
 // console.log(`\n\n
 // -----------------------------
@@ -14,11 +15,25 @@ router.get("/", (req, res) => {
 });
 
 router.get("/sneakers/:cat", (req, res) => {
-  res.render("products");
+  console.log("req params: ", req.params);
+  const category = req.params.cat;
+
+  if(category === "collection") {
+    SneakerModel.find()
+    .then(dbRes => res.render("products", { sneakers: dbRes }))
+    .catch(err => console.log(err));
+  } else {
+    SneakerModel.find({category})
+    .then(dbRes => res.render("products", { sneakers: dbRes }))
+    .catch(err => console.log(err));
+  }
+  
 });
 
 router.get("/one-product/:id", (req, res) => {
-  res.send("one-product");
+  SneakerModel.findById(req.params.id)
+  .then(dbRes => res.render("one_product", { sneaker: dbRes }))
+  .catch(err => console.log(err));
 });
 
 router.get("/signup", (req, res) => {
