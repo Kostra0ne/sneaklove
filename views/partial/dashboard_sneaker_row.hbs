@@ -12,8 +12,17 @@
 </td>
 <td class="table-division">
   <a href="/prod-edit/{{this._id}}">
-    <i class="fa fa-edit table-icon"></i></a>
+    <i class="fa fa-edit table-icon"></i>
+  </a>
 </td>
+{{!-- <td class="table-division">
+  <a href="/prod-delete/{{this._id}}" data-id="{{this._id}}" aria-hidden="true">
+    <i class="fa fa-trash table-icon"></i>
+  </a> --}}
+
 <td class="table-division">
-  <a class="fa fa-trash table-icon" data-id-sneaker="{{this._id}}" aria-hidden="true"></a>
+  <a href="/prod-delete/{{this._id}}">
+    <i class="fa fa-trash table-icon"></i></a>
 </td>
+
+{{!-- </td> --}}

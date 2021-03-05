@@ -31,18 +31,18 @@ router.get("/prod-edit/:id", (req, res, next) => {
     .catch(next);
 });
 
-// router.get("/prod-edit/:id", (req, res, next) => {
-//   SneakersModel.findByIdAndDelete(req.params.id)
-//     .then(() => {
-//       res.redirect("/prod-edit");
-//     })
-//     .catch(next);
-// });
-
 router.post("/prod-edit/:id", (req, res, next) => {
-  SneakersModel.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  SneakersModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(() => {
       res.render("products_manage.hbs");
+    })
+    .catch(next);
+});
+
+router.post("/prod-delete/:id", (req, res, next) => {
+  SneakersModel.findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.redirect("/prod-manage");
     })
     .catch(next);
 });
