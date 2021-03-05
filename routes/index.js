@@ -10,7 +10,8 @@ const router = express.Router();
 // );
 
 router.get("/", (req, res) => {
-  res.send("foo");
+  // return axios.get()
+  res.render("index");
 });
 
 router.get("/sneakers/:cat", (req, res) => {
