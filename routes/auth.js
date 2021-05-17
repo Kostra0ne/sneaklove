@@ -24,15 +24,19 @@ router.get("/signout", (req, res, next) => {
   });
 });
 
-router.post("/signin", (req, res, next) => {
+router.post("/signin",(req, res, next) => {
   const { email, password } = req.body;
-  UserModel.find({ email: email })
+  UserModel.findOne({ email: email })
   .then((foundUser) => {
     if (!foundUser) {
       req.flash("error", "invalid credentials");
       res.redirect("/auth/signin");
     } else {
-      const isSamePW = bcrypt.compareSync(password, foundUser.password); //ici password vient de la bdd et founUser;password est celui renseigner par le user lors de la connexion
+        console.log(foundUser);
+        console.log(password);
+        console.log(foundUser.password);
+    
+      const isSamePW = bcrypt.compareSync(foundUser.password, password); //ici password vient de la bdd et founUser;password est celui renseigner par le user lors de la connexion
       if (!isSamePW) {
         req.flash("error", "invalid credentials");
         res.redirect("/auth/signin");
@@ -40,13 +44,17 @@ router.post("/signin", (req, res, next) => {
         const userObject = foundUser.toObject(); // pour n'avoir vraiment que email et password et pas d'autre données annexes(coté serveur)
         delete userObject.password; // suppr le contenu de password dans req body
         req.session.currentUser = userObject; //+ c'est ca qui enr le user dans la session et envoyer le cookie au "client"
-        req, flash("Yataaa!");
+        console.log("connected");
+        req.flash("Yataaa!");
         res.redirect("/sneakers/:cat");
       }
     }
+  }).catch((err)=>{
+        res.render("signin.hbs");
+        next(err);
   });
 
-  res.render("signin.hbs");
+
 });
 
 router.post("/signup", (req, res, next) => {
